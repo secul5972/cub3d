@@ -12,20 +12,12 @@
 
 #include <stdio.h>
 #include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "get_next_line.h"
 
 int dx[] = {1, 0, -1, 0};
 int dy[] = {0, 1, 0, -1};
 int width = 12;
 int height = 12;
-
-typedef struct s_line_lst
-{
-    struct s_line_lst *next;
-    char *line;
-    int len;
-}   t_line_lst;
 
 int isClosed(char map[][12])
 {
@@ -36,7 +28,7 @@ int isClosed(char map[][12])
             if (map[i][j] != ' ')
                 continue;
             for (int k = 0; k < 4; k++)
-            {
+               {
                 int x = i + dx[k];
                 int y = j + dy[k];
 
@@ -57,35 +49,18 @@ int ft_max(int a, int b)
     return (b);
 }
 
-int ft_strcpy(char *dest, const char *src, int size)
+int	ft_strcpy(char *dest, const char *src, int size)
 {
-    int i;
+	int i;
+	int len;
 
-    i = 0;
-    while (i < size)
-    {
-        dest[i] = src[i];
-        i++;
-    }
-    return (i);
-}
-
-int read_line(int fd, char **line)
-{
-    char buffer[100000];
-    int i;
-    char ch;
-    i = 0;
-    while (read(fd, &ch, 1) > 0)
-    {
-        if (ch == '\n')
-            break;
-        buffer[i] = ch;
-        i++;
-    }
-    *line = (char *)malloc(sizeof(char) * i);
-    ft_strcpy(*line, buffer, i);
-    return i;
+	i = 0;
+	while (i < size)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	return (len);
 }
 
 int read_map(char **map)
@@ -97,37 +72,23 @@ int read_map(char **map)
     int i;
     int j;
     char *line;
-    t_line_lst head;
-    t_line_lst *curr;
 
-    fd = open("map.cub", O_RDONLY);
+    fd = open("map.cub",O_RDONLY);
     if (fd < 0)
         return 1;
 
     len = 1;
-    height = 0;
-    width = 0;
-
-    curr = &head;
-    while (1)
+    while (len < 0)
     {
-        len = read_line(fd, &line);
-        if (len <= 0)
-            break;
+        len = get_next_line(fd, &line);
+        printf("%s\n", line);
         width = ft_max(len, width);
         height++;
-        curr->next = malloc(sizeof(t_line_lst));
-        curr->next->next = 0;
-        curr->line = line;
-        curr->len = len;
-        curr = curr->next;
     }
     close(fd);
 
-    map = (char **)malloc(sizeof(char*) * (height + 2));
-    i = 0;
-    while (i < height + 2)
-         map[i++] = (char *)malloc(sizeof(char) * (width + 2));
+    fd = open("map.cub",O_RDONLY);
+    map = malloc(sizeof(char) * (width + 2) * (height + 2));
 
     i = 0;
     while (i < width + 2)
@@ -137,19 +98,17 @@ int read_map(char **map)
     }
 
     i = 1;
-    curr = &head;
-    while (curr)
+    while (1)
     {
+        len = get_next_line(fd, &line);
         map[i][0] = ' ';
-        j = ft_strcpy(&map[i][1], curr->line, curr->len);
+        ft_strcpy(&map[i][1], line, len);
+        j = len;
         while (j < width + 2)
         {
-            printf("%d\n", j);
             map[i][j] = ' ';
-            j++;
         }
         i++;
-        curr = curr->next;
     }
 
     i = 0;
@@ -159,33 +118,35 @@ int read_map(char **map)
         i++;
     }
 
-    for (int i = 0; i < height + 2; i++)
+    for (int i=0; i<height;i++)
     {
-        for (int j = 0; j < width + 2; j++)
+        for (int j=0; j<width;j++)
         {
             printf("%c", map[i][j]);
         }
-        printf("f\n");
+        printf("\n");
     }
+    close(fd);
     return 0;
 }
 
 int main()
 {
     char **map;
-    // char arr[12][12] = {
-    //     {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-    //     {' ', ' ', ' ', '1', '1', '1', '1', '1', '1', '1', '1', ' '},
-    //     {' ', ' ', ' ', '1', '0', '0', '0', '0', '0', '0', '1', ' '},
-    //     {' ', '1', '1', '1', '1', '0', '0', '0', '0', '0', '1', ' '},
-    //     {' ', '1', '0', '0', '0', '0', '1', '1', '1', '1', '1', ' '},
-    //     {' ', '1', '0', '0', '0', '0', '1', '0', '0', '0', '1', ' '},
-    //     {' ', '1', '0', '0', '0', '0', '1', '0', '0', '0', '1', ' '},
-    //     {' ', '1', '0', '0', '0', '0', '0', '1', '1', '1', '1', ' '},
-    //     {' ', '1', '0', '0', '0', '0', '0', '0', '1', '0', '1', ' '},
-    //     {' ', '1', '0', '0', '0', '0', '1', '0', '1', '1', '1', ' '},
-    //     {' ', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', ' '},
-    //     {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}};
+    char arr[12][12] = {
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', '1', '1', '1', '1', '1', '1', '1', '1', ' '},
+        {' ', ' ', ' ', '1', '0', '0', '0', '0', '0', '0', '1', ' '},
+        {' ', '1', '1', '1', '1', '0', '0', '0', '0', '0', '1', ' '},
+        {' ', '1', '0', '0', '0', '0', '1', '1', '1', '1', '1', ' '},
+        {' ', '1', '0', '0', '0', '0', '1', '0', '0', '0', '1', ' '},
+        {' ', '1', '0', '0', '0', '0', '1', '0', '0', '0', '1', ' '},
+        {' ', '1', '0', '0', '0', '0', '0', '1', '1', '1', '1', ' '},
+        {' ', '1', '0', '0', '0', '0', '0', '0', '1', '0', '1', ' '},
+        {' ', '1', '0', '0', '0', '0', '1', '0', '1', '1', '1', ' '},
+        {' ', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}
+    };
     if (read_map(map))
         printf("Error\n");
     // if (isClosed(map))

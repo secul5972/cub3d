@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/03 13:17:24 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/03 14:02:04 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,11 @@ int cub3d_init(t_cub3d_data *cub, t_img *img)
     return (0);
 }
 
+int read_map()
+{
+    
+}
+
 int	press_esc(int keycode)
 {
 	if (keycode == 53)
@@ -47,7 +52,9 @@ int main(int argc, char **argv)
 
     if (cub3d_init(&cub, &cub.img))
         return (1);
-    //mlx_put_image_to_window(cub.mlx, cub.win, cub.img.img_ptr, 0, 0);
+    if (read_map())
+        return (1);
+    mlx_put_image_to_window(cub.mlx, cub.win, cub.img.img_ptr, 0, 0);
     mlx_key_hook(cub.win, press_esc, 0);
     mlx_loop(cub.mlx);
 }
