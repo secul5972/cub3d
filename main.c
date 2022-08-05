@@ -46,6 +46,13 @@ int	press_esc(int keycode)
 	return (0);
 }
 
+int	press_x_button(t_cub3d_data *cub)
+{
+	mlx_destroy_window(cub->mlx, cub->win);
+	exit(0);
+	return (0);
+}
+
 int main(int argc, char **argv)
 {
     t_cub3d_data cub;
@@ -56,5 +63,6 @@ int main(int argc, char **argv)
         return (1);
     mlx_put_image_to_window(cub.mlx, cub.win, cub.img.img_ptr, 0, 0);
     mlx_key_hook(cub.win, press_esc, 0);
+    mlx_hook(cub.win, KeyExit_X_EVENT, LeaveWindowMask, &press_x_button, &cub);
     mlx_loop(cub.mlx);
 }
