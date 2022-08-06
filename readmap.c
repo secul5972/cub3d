@@ -1,0 +1,108 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   readmap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/06 21:07:23 by secul5972         #+#    #+#             */
+/*   Updated: 2022/08/06 21:08:46 by secul5972        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
+int isClosed(t_cub3d_data *cub)
+{
+	int dx[] = {1, 0, -1, 0};
+	int dy[] = {0, 1, 0, -1};
+
+    for (int i = 0; i < cub->w_height; i++)
+    {
+        for (int j = 0; j < cub->w_width; j++)
+        {
+            if (cub->map[i][j] != ' ')
+                continue;
+            for (int k = 0; k < 4; k++)
+            {
+                int x = i + dx[k];
+                int y = j + dy[k];
+
+                if (x < 0 || x >= cub->w_height || y < 0 || y >= cub->w_width)
+                    continue;
+                if (cub->map[x][y] == '0')
+                    return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+
+int read_map(t_cub3d_data *cub)
+{
+    int len;
+    int i;
+    int j;
+    char *line;
+    t_line_lst head;
+    t_line_lst *curr;
+	char **map;
+
+    len = 1;
+	cub->m_width = 0;
+    cub->m_height = 0;
+
+    curr = &head;
+    while (1)
+    {
+        len = read_line(cub->fd, &line);
+        if (len <= 0)
+            break;
+        cub->m_width = ft_max(len, cub->m_width);
+        cub->m_height++;
+        curr->next = malloc(sizeof(t_line_lst));
+        curr->next->next = 0;
+        curr->line = line;
+        curr->len = len;
+        curr = curr->next;
+    }
+    close(cub->fd);
+
+    map = (char **)malloc(sizeof(char*) * (cub->m_height + 2));
+    i = 0;
+    while (i < cub->m_height + 2)
+         map[i++] = (char *)malloc(sizeof(char) * (cub->m_width + 2));
+
+    i = 0;
+    while (i < cub->m_width + 2)
+    {
+        map[0][i] = ' ';
+        i++;
+    }
+
+    i = 1;
+    curr = &head;
+    while (curr)
+    {
+        map[i][0] = ' ';
+        j = ft_strcpy(&map[i][1], curr->line, 0, curr->len) + 1;
+        while (j < cub->m_width + 2)
+        {
+            map[i][j] = ' ';
+            j++;
+        }
+        i++;
+        curr = curr->next;
+    }
+
+    i = 0;
+    while (i < cub->m_width + 2)
+    {
+        map[cub->m_height + 1][i] = ' ';
+        i++;
+    }
+
+	cub->map = map;
+    return 0;
+}

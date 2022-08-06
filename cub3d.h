@@ -6,7 +6,7 @@
 /*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/06 20:14:20 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/06 21:04:59 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,13 @@ typedef struct s_cub3d_data
 
 	//file
 	int fd;
-	
+	char contents[300000];
+
 	// map
 	char	**map;
 	int		m_width;
 	int		m_height;
+
 }   t_cub3d_data;
 
 char	**ft_split(char const *s, char c);

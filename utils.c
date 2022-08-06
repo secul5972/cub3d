@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:33:21 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/03 14:33:57 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/06 21:09:03 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,22 @@ void	free_str(char **strs)
 		}
 		free(strs);
 	}
+}
+
+int read_line(int fd, char **line)
+{
+    char buffer[100000];
+    int i;
+    char ch;
+    i = 0;
+    while (read(fd, &ch, 1) > 0)
+    {
+        if (ch == '\n')
+            break;
+        buffer[i] = ch;
+        i++;
+    }
+    *line = (char *)malloc(sizeof(char) * i);
+    ft_strcpy(*line, buffer, 0, i);
+    return i;
 }

@@ -6,7 +6,7 @@
 /*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/06 20:18:46 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/06 21:10:49 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,121 +31,6 @@ int cub3d_init(t_cub3d_data *cub, t_img *img)
 	// img->data_ptr == 0)
     //     return (1);
     return (0);
-}
-
-int read_line(int fd, char **line)
-{
-    char buffer[100000];
-    int i;
-    char ch;
-    i = 0;
-    while (read(fd, &ch, 1) > 0)
-    {
-        if (ch == '\n')
-            break;
-        buffer[i] = ch;
-        i++;
-    }
-    *line = (char *)malloc(sizeof(char) * i);
-    ft_strcpy(*line, buffer, 0, i);
-    return i;
-}
-
-
-
-int isClosed(t_cub3d_data *cub)
-{
-	int dx[] = {1, 0, -1, 0};
-	int dy[] = {0, 1, 0, -1};
-
-    for (int i = 0; i < cub->w_height; i++)
-    {
-        for (int j = 0; j < cub->w_width; j++)
-        {
-            if (cub->map[i][j] != ' ')
-                continue;
-            for (int k = 0; k < 4; k++)
-            {
-                int x = i + dx[k];
-                int y = j + dy[k];
-
-                if (x < 0 || x >= cub->w_height || y < 0 || y >= cub->w_width)
-                    continue;
-                if (cub->map[x][y] == '0')
-                    return 1;
-            }
-        }
-    }
-    return 0;
-}
-
-
-int read_map(t_cub3d_data *cub)
-{
-    int len;
-    int i;
-    int j;
-    char *line;
-    t_line_lst head;
-    t_line_lst *curr;
-	char **map;
-
-    len = 1;
-	cub->m_width = 0;
-    cub->m_height = 0;
-
-    curr = &head;
-    while (1)
-    {
-        len = read_line(cub->fd, &line);
-        if (len <= 0)
-            break;
-        cub->m_width = ft_max(len, cub->m_width);
-        cub->m_height++;
-        curr->next = malloc(sizeof(t_line_lst));
-        curr->next->next = 0;
-        curr->line = line;
-        curr->len = len;
-        curr = curr->next;
-    }
-    close(cub->fd);
-
-    map = (char **)malloc(sizeof(char*) * (cub->m_height + 2));
-    i = 0;
-    while (i < cub->m_height + 2)
-         map[i++] = (char *)malloc(sizeof(char) * (cub->m_width + 2));
-
-    i = 0;
-    while (i < cub->m_width + 2)
-    {
-        map[0][i] = ' ';
-        i++;
-    }
-
-    i = 1;
-    curr = &head;
-    while (curr)
-    {
-        map[i][0] = ' ';
-        j = ft_strcpy(&map[i][1], curr->line, 0, curr->len) + 1;
-        while (j < cub->m_width + 2)
-        {
-            map[i][j] = ' ';
-            j++;
-        }
-        i++;
-        curr = curr->next;
-    }
-
-    i = 0;
-    while (i < cub->m_width + 2)
-    {
-        map[cub->m_height + 1][i] = ' ';
-        i++;
-    }
-
-	cub->map = map;
-    return 0;
 }
 
 int	press_esc(int keycode)
@@ -175,13 +60,13 @@ int main(int argc, char **argv)
     t_cub3d_data cub;
 
     if (cub3d_init(&cub, &cub.img))
-        return p_error("mlx error\n", 11);
+        return p_error("Mlx Error\n", 11);
 	if (file_open(&cub))
-		return p_error("file_error\n", 12);
+		return p_error("File Error\n", 12);
 	//if (!parsing(str, &dt, &cub))
-	//	return p_error("Error\n", 6);
+	//	return p_error("Parsing Error\n", 15);
     if (read_map(&cub))
-        return (1);
+        return p_error("Read Map Error\n", 16);
 
 	for (int i = 0; i < cub.m_height + 2; i++)
     {
