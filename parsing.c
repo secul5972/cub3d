@@ -1,30 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   element.c                                          :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:32:09 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/03 16:00:26 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/06 19:42:40 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "cub3d.h"
-
-// elements structure 
-typedef struct s_elements
-{
-	// texture pointerS
-	void	*n_texture;
-	void	*s_texture;
-	void	*w_texture;
-	void	*e_texture;
-	// rgb colors
-	int		f_rgb[3];
-	int		c_rgb[3];
-}	t_elements;
 
 // .cub 파일 내에서 줄바꿈 기호의 위치 반환
 int	until_newline(char *content, int i)
