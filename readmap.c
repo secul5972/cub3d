@@ -6,7 +6,7 @@
 /*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:07:23 by secul5972         #+#    #+#             */
-/*   Updated: 2022/08/06 21:08:46 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/06 21:50:02 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ int isClosed(t_cub3d_data *cub)
 {
 	int dx[] = {1, 0, -1, 0};
 	int dy[] = {0, 1, 0, -1};
-
-    for (int i = 0; i < cub->w_height; i++)
+	int x;
+	int y;
+    for (int i = 0; i < cub->m_height; i++)
     {
-        for (int j = 0; j < cub->w_width; j++)
+        for (int j = 0; j < cub->m_width; j++)
         {
             if (cub->map[i][j] != ' ')
                 continue;
@@ -27,8 +28,7 @@ int isClosed(t_cub3d_data *cub)
             {
                 int x = i + dx[k];
                 int y = j + dy[k];
-
-                if (x < 0 || x >= cub->w_height || y < 0 || y >= cub->w_width)
+                if (x < 0 || x >= cub->m_height || y < 0 || y >= cub->m_width)
                     continue;
                 if (cub->map[x][y] == '0')
                     return 1;
@@ -36,6 +36,19 @@ int isClosed(t_cub3d_data *cub)
         }
     }
     return 0;
+}
+
+void chk_char(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != '0' && line[i] != '1' && line[i] != 'N' && line[i] != 'S' && line[i] != 'E' && line[i] != 'W' && line[i] != ' ')
+			line[i] = ' ';
+		i++;
+	}
 }
 
 
@@ -59,6 +72,7 @@ int read_map(t_cub3d_data *cub)
         len = read_line(cub->fd, &line);
         if (len <= 0)
             break;
+		chk_char(line);
         cub->m_width = ft_max(len, cub->m_width);
         cub->m_height++;
         curr->next = malloc(sizeof(t_line_lst));
@@ -102,7 +116,9 @@ int read_map(t_cub3d_data *cub)
         map[cub->m_height + 1][i] = ' ';
         i++;
     }
-
 	cub->map = map;
+	if (isClosed(cub))
+		return 1;
+
     return 0;
 }
