@@ -10,32 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "cub3d.h"
 
-// elements structure 
-typedef struct s_elements
-{
-	// texture pointerS
-	void	*n_texture;
-	void	*s_texture;
-	void	*w_texture;
-	void	*e_texture;
-	// rgb colors
-	int		f_rgb[3];
-	int		c_rgb[3];
-}	t_elements;
-
-// .cub 파일 내에서 줄바꿈 기호의 위치 반환
-int	until_newline(char *content, int i)
-{
-	while (content[i] != '\n')
-		i++;
-	return (i);
-}
-
 // rgb 색상 숫자로 저장 (색상 문자열에서 공백일 포함될 떄의 경우 처리 필요?)
-int	get_rgb(char **elem, t_elements *dt)
+int	get_rgb(char **elem, t_cub3d_data *cub) // return 0 - success, 1 - fail
 {
 	char	**rgb;
 	int		colors[3];
@@ -43,7 +21,7 @@ int	get_rgb(char **elem, t_elements *dt)
 
 	rgb = ft_split(elem[1], ',');
 	if (rgb[3] != 0)
-		return (0);
+		return (1);
 	i = -1;
 	while (++i < 3)
 	{
@@ -52,212 +30,101 @@ int	get_rgb(char **elem, t_elements *dt)
 			break ;
 	}
 	if (i != 3)
-		return (0);
+		return (1);
 	if (ft_strcmp(elem[0], "F") == 0)
 	{
 		while (--i >= 0)
-			dt->f_rgb[i] = colors[i];
+			cub->f_rgb[i] = colors[i];
 	}
 	else
 	{
 		while (--i >= 0)
-			dt->c_rgb[i] = colors[i];
+			cub->c_rgb[i] = colors[i];
 	}
-	return (1);
+	return (0);
 }
 
-int	is_map_start(char **elems)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (elems[i])
-	{
-		j = 0;
-		while (elems[i][j])
-		{
-			if (elems[i][j] != '1')
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	return (1);
-}
-
-int is_valid_elements(char **elems) // return 0 - fail, 1 - success, 2 - map started
+int is_invalid_elements(char **elems) // return 0 - success, 1 - fail
 {
 	int	i;
 
 	i = 0;
-	if (is_map_start(elems))
-		return (2);
 	while (elems[i])
 		i++;
 	if (i != 2)
-		return (0);
+		return (1);
 	if (!(ft_strcmp(elems[0], "NO") == 0 || ft_strcmp(elems[0], "SO") == 0\
 		|| ft_strcmp(elems[0], "WE") == 0 || ft_strcmp(elems[0], "EA") == 0\
 		|| ft_strcmp(elems[0], "F") == 0 || ft_strcmp(elems[0], "C") == 0))
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 // 각 식별자를 기준으로 필요한 정보 저장
-int	get_elements(char *line, t_elements *dt, t_cub3d_data *cub) // return 0 - fail, 1 - success, 2 - map started
+int	get_elements(char *line, t_cub3d_data *cub) // return 0 - success, 1 - fail, -1 - empty line
 {
 	char	**elem;
 	int		img_width;
 	int		img_height;
 
-	if (line[0] == '\0')
-		return (-1);
 	elem = ft_split(line, ' ');
-	if (!is_valid_elements(elem))
+	if (!elem[0])
 		return (0);
+	if (is_invalid_elements(elem))
+		return (1);
 	printf("%s: %s\n", elem[0], elem[1]);
 	// mlx_xpm_file_to_image: 존재하지 않는 파일이면 null 반환
 	if (ft_strcmp(elem[0], "NO") == 0)
-		dt->n_texture = mlx_xpm_file_to_image(cub->mlx, elem[1], &img_width, &img_height);
+		cub->n_texture = mlx_xpm_file_to_image(cub->mlx, elem[1], &img_width, &img_height);
 	else if (ft_strcmp(elem[0], "SO") == 0)
-		dt->s_texture = mlx_xpm_file_to_image(cub->mlx, elem[1], &img_width, &img_height);
+		cub->s_texture = mlx_xpm_file_to_image(cub->mlx, elem[1], &img_width, &img_height);
 	else if (ft_strcmp(elem[0], "WE") == 0)
-		dt->w_texture = mlx_xpm_file_to_image(cub->mlx, elem[1], &img_width, &img_height);
+		cub->w_texture = mlx_xpm_file_to_image(cub->mlx, elem[1], &img_width, &img_height);
 	else if (ft_strcmp(elem[0], "EA") == 0)
-		dt->e_texture = mlx_xpm_file_to_image(cub->mlx, elem[1], &img_width, &img_height);
+		cub->e_texture = mlx_xpm_file_to_image(cub->mlx, elem[1], &img_width, &img_height);
 	else if (ft_strcmp(elem[0], "F") == 0 || ft_strcmp(elem[0], "C") == 0)
 	{
-		if (!get_rgb(elem, dt))
-			return (0);
+		if (get_rgb(elem, cub))
+			return (1);
 	}
-	else
-		return (2);
-	return (1);
+	return (0);
 }
 
 // 필요한 정보들이 다 저장되었는지
-int	is_all_stored(t_elements *dt) // return 0 - fail, 1 - success
+int	is_all_stored(t_cub3d_data *cub) // return 0 - fail, 1 - success
 {
-	if (!dt->n_texture || !dt->s_texture || !dt->w_texture || !dt->e_texture)
+	if (!cub->n_texture || !cub->s_texture || !cub->w_texture || !cub->e_texture)
 		return (0);
-	if (dt->f_rgb[0] == -1 || dt->f_rgb[1] == -1 || dt->f_rgb[2] == -1)
+	if (cub->f_rgb[0] == -1 || cub->f_rgb[1] == -1 || cub->f_rgb[2] == -1)
 		return (0);
-	if (dt->c_rgb[0] == -1 || dt->c_rgb[1] == -1 || dt->c_rgb[2] == -1)
+	if (cub->c_rgb[0] == -1 || cub->c_rgb[1] == -1 || cub->c_rgb[2] == -1)
 		return (0);
 	return (1);
 }
 
 //.cub 파일 데이터 파싱 (맵 전까지)
-int	parsing(char *content, t_elements *dt, t_cub3d_data *cub) // return 0 - fail, 1 - success
+int	parsing(t_cub3d_data *cub) // return 0 - success, 1 - fail
 {
 	char	*line;
-	int		i;
+	int		len;
 	int		res;
-	int		new_line_idx;
 
-	line = 0;
-	i = 0;
-	while (content[i])
+	while (1)
 	{
-		new_line_idx = until_newline(content, i);
-		line = (char *)malloc(sizeof(char) * (new_line_idx - i + 1));
-		if (!line)
-			return (0);
-		ft_strcpy(line, content, i, new_line_idx);
-		res = get_elements(line, dt, cub);
+		len = read_line(cub->fd, &line);
+		if (len <= 0)
+			return (1);
+		if (line[0] == '\n')
+		{
+			free(line);
+			continue ;
+		}
+		res = get_elements(line, cub);
 		free(line);
-		if (res == 0)
+		if (res)
+			return (1);
+		if (is_all_stored(cub))
 			return (0);
-		else if (res == 2)
-			break ;
-		i = new_line_idx + 1;
 	}
-	if (!is_all_stored(dt))
-		return (0);
 	return (1);
-}
-
-// t_elements 구조체 초기화
-void	init_texture(t_elements *dt)
-{
-	dt->n_texture = 0;
-	dt->s_texture = 0;
-	dt->w_texture = 0;
-	dt->e_texture = 0;
-	dt->f_rgb[0] = -1;
-	dt->f_rgb[1] = -1;
-	dt->f_rgb[2] = -1;
-	dt->c_rgb[0] = -1;
-	dt->c_rgb[1] = -1;
-	dt->c_rgb[2] = -1;
-}
-
-/*---------------main.c copy----------------------------*/
-int p_error(char *str, int len)
-{
-    write(2, str, len);
-    return (1);
-}
-
-int cub3d_init(t_cub3d_data *cub, t_img *img)
-{
-    cub->mlx = mlx_init();
-    cub->width = 800;
-    cub->length = 800;
-	cub->win = mlx_new_window(cub->mlx, cub->width, cub->length, "cub3d");
-	/*img->img_ptr = mlx_new_image(cub->mlx, cub->width, cub->length);
-	img->data_ptr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel, \
-	&img->line_length, &img->endian);
-	if (cub->mlx == 0 || cub->win == 0 || img->img_ptr == 0 || \
-	img->data_ptr == 0)
-        return p_error("mlx error\n", 11);*/
-
-    return (0);
-}
-
-int	press_esc(int keycode)
-{
-	if (keycode == 53)
-		exit(0);
-	return (0);
-}
-/*-----------------------------------------------------*/
-
-int main()
-{
-	char str[] = "NO ./texture/sample.xpm\n\
-SO ./texture/sample.xpm\n\
-WE ./texture/sample.xpm\n\
-EA ./texture/sample.xpm\n\n\
-F 220,100,0\n\
-C 225,30,0\n\n\
-        1111111111111111111111111\n\
-        1000000000110000000000001\n\
-        1011000001110000000000001\n\
-        1001000000000000000000001\n\
-111111111011000001110000000000001\n\
-100000000011000001110111111111111\n\
-11110111111111011100000010001\n\
-11110111111111011101010010001\n\
-11000000110101011100000010001\n\
-10000000000000001100000010001\n\
-10000000000000001101010010001\n\
-11000001110101011111011110N0111\n\
-11110111 1110101 101111010001\n\
-11111111 1111111 111111111111";
-	t_elements	dt;
-	t_cub3d_data cub;
-
-	if (cub3d_init(&cub, &cub.img))
-        return (1);
-	init_texture(&dt);
-	if (!parsing(str, &dt, &cub))
-		printf("Error\n");
-	else
-		printf("OK\n");
-	mlx_put_image_to_window(cub.mlx, cub.win, dt.n_texture, 0, 0);
-	mlx_key_hook(cub.win, press_esc, 0);
-    mlx_loop(cub.mlx);
-	return (0);
 }

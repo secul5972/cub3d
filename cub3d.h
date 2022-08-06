@@ -74,5 +74,6 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		ft_max(int a, int b);
 void	free_str(char **strs);
 int		read_line(int fd, char **line);
+int		parsing(t_cub3d_data *cub);
 
 #endif

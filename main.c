@@ -20,10 +20,21 @@ int p_error(char *str, int len)
 
 int cub3d_init(t_cub3d_data *cub, t_img *img)
 {
-    // cub->mlx = mlx_init();
+    //cub->mlx = mlx_init();
     cub->w_width = 800;
     cub->w_height = 800;
-	// cub->win = mlx_new_window(cub->mlx, cub->width, cub->length, "cub3d");
+	//init elements
+	cub->n_texture = 0;
+	cub->s_texture = 0;
+	cub->w_texture = 0;
+	cub->e_texture = 0;
+	cub->f_rgb[0] = -1;
+	cub->f_rgb[1] = -1;
+	cub->f_rgb[2] = -1;
+	cub->c_rgb[0] = -1;
+	cub->c_rgb[1] = -1;
+	cub->c_rgb[2] = -1;
+	//cub->win = mlx_new_window(cub->mlx, cub->w_width, cub->w_height, "cub3d");
 	// img->img_ptr = mlx_new_image(cub->mlx, cub->width, cub->length);
 	// img->data_ptr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel, \
 	// &img->line_length, &img->endian);
@@ -40,9 +51,9 @@ int	press_esc(int keycode)
 	return (0);
 }
 
-int file_open(t_cub3d_data *cub)
+int file_open(t_cub3d_data *cub, char *cub_file)
 {
-	cub ->fd = open("map.cub", O_RDONLY);
+	cub ->fd = open(cub_file, O_RDONLY);
 	if (cub->fd < 0)
         return (1);
 	return (0);
@@ -59,14 +70,16 @@ int main(int argc, char **argv)
 {
     t_cub3d_data cub;
 
+	if (argc != 2)
+		return p_error("Arguments Error\n", 17);
     if (cub3d_init(&cub, &cub.img))
         return p_error("Mlx Error\n", 11);
-	if (file_open(&cub))
+	if (file_open(&cub, argv[1]))
 		return p_error("File Error\n", 12);
-	//if (!parsing(str, &dt, &cub))
-	//	return p_error("Parsing Error\n", 15);
-	// if (read_map(&cub))
-	// 	return p_error("Read Map Error\n", 16);
+	if (parsing(&cub))
+		return p_error("Parsing Error\n", 15);
+	if (read_map(&cub))
+	 	return p_error("Read Map Error\n", 16);
 
 	// for (int i = 0; i < cub.m_height + 2; i++)
 	// {
@@ -76,8 +89,9 @@ int main(int argc, char **argv)
 	// 	}
 	// 	write(1, "f\n", 2);
 	// }
-	// mlx_put_image_to_window(cub.mlx, cub.win, cub.img.img_ptr, 0, 0);
-    // mlx_key_hook(cub.win, press_esc, 0);
-    // mlx_hook(cub.win, KeyExit_X_EVENT, LeaveWindowMask, &press_x_button, &cub);
-    // mlx_loop(cub.mlx);
+	 /*mlx_put_image_to_window(cub.mlx, cub.win, cub.w_texture, 0, 0);
+     mlx_key_hook(cub.win, press_esc, 0);
+     mlx_hook(cub.win, KeyExit_X_EVENT, LeaveWindowMask, &press_x_button, &cub);
+     mlx_loop(cub.mlx);*/
+	return (0);
 }
