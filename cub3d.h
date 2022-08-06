@@ -6,7 +6,7 @@
 /*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/06 21:04:59 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/06 21:22:05 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,13 @@ typedef struct s_cub3d_data
 
 }   t_cub3d_data;
 
+int		read_map(t_cub3d_data *cub);
 char	**ft_split(char const *s, char c);
 int		ft_atoi(const char *nptr);
 int		ft_strcpy(char *s1, char *s2, int start, int end);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_max(int a, int b);
 void	free_str(char **strs);
+int		read_line(int fd, char **line);
 
 #endif

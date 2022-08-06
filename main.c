@@ -6,7 +6,7 @@
 /*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/06 21:10:49 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/06 21:31:15 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,17 @@ int main(int argc, char **argv)
 		return p_error("File Error\n", 12);
 	//if (!parsing(str, &dt, &cub))
 	//	return p_error("Parsing Error\n", 15);
-    if (read_map(&cub))
-        return p_error("Read Map Error\n", 16);
+    // if (read_map(&cub))
+    //     return p_error("Read Map Error\n", 16);
 
-	for (int i = 0; i < cub.m_height + 2; i++)
-    {
-        for (int j = 0; j < cub.m_width + 2; j++)
-        {
-            write(1, &cub.map[i][j], 1);
-        }
-        write(1, "f\n", 2);
-    }
+	// for (int i = 0; i < cub.m_height + 2; i++)
+    // {
+    //     for (int j = 0; j < cub.m_width + 2; j++)
+    //     {
+    //         write(1, &cub.map[i][j], 1);
+    //     }
+    //     write(1, "f\n", 2);
+    // }
     // mlx_put_image_to_window(cub.mlx, cub.win, cub.img.img_ptr, 0, 0);
     // mlx_key_hook(cub.win, press_esc, 0);
     // mlx_hook(cub.win, KeyExit_X_EVENT, LeaveWindowMask, &press_x_button, &cub);
