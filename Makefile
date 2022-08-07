@@ -16,7 +16,9 @@ RM = rm -f
 MLX = -Lmlx -lmlx -framework OpenGL -framework Appkit
 
 NAME = cub3d
-SRCS = main.c
+SRCS = main.c parsing.c readmap.c utils.c\
+	ft_function/ft_split.c ft_function/ft_utils.c\
+	ft_function/ft_atoi.c
 	   
 OBJS = $(SRCS:.c=.o)
 

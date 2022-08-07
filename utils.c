@@ -42,6 +42,8 @@ int read_line(int fd, char **line)
         buffer[i] = ch;
         i++;
     }
+    if (ch == '\n' && i == 0) // consider empty line
+        buffer[i++] = ch;
     *line = (char *)malloc(sizeof(char) * (i + 1));
     ft_strcpy(*line, buffer, 0, i);
 	(*line)[i] = 0;
