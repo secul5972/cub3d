@@ -6,7 +6,7 @@
 /*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:32:09 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/06 21:38:09 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/07 16:40:11 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,10 @@ int	parsing(t_cub3d_data *cub) // return 0 - success, 1 - fail
 	while (1)
 	{
 		len = read_line(cub->fd, &line);
-		if (len <= 0)
+		if (len < 0)
 			return (1);
-		if (line[0] == '\n')
-		{
-			free(line);
-			continue ;
-		}
+		else if (len == 0)
+			continue;
 		res = get_elements(line, cub);
 		free(line);
 		if (res)

@@ -6,7 +6,7 @@
 /*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/06 21:22:05 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/07 16:15:57 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int		ft_strcmp(const char *s1, const char *s2);
 int		ft_max(int a, int b);
 void	free_str(char **strs);
 int		read_line(int fd, char **line);
+void	free_list(t_line_lst *head);
+void	free_map(char **map, int height);
 int		parsing(t_cub3d_data *cub);
 
 #endif

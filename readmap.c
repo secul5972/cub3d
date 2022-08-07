@@ -6,7 +6,7 @@
 /*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:07:23 by secul5972         #+#    #+#             */
-/*   Updated: 2022/08/06 21:50:02 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/07 16:32:49 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int isClosed(t_cub3d_data *cub)
     return 0;
 }
 
-void chk_char(char *line)
+void	chk_char(char *line)
 {
 	int i;
 
@@ -70,12 +70,16 @@ int read_map(t_cub3d_data *cub)
     while (1)
     {
         len = read_line(cub->fd, &line);
-        if (len <= 0)
+        if (len < 0)
             break;
+		else if (len == 0)
+			continue;
 		chk_char(line);
         cub->m_width = ft_max(len, cub->m_width);
         cub->m_height++;
         curr->next = malloc(sizeof(t_line_lst));
+		if (curr->next == 0)
+			free_list(&head);
         curr->next->next = 0;
         curr->line = line;
         curr->len = len;
@@ -84,9 +88,20 @@ int read_map(t_cub3d_data *cub)
     close(cub->fd);
 
     map = (char **)malloc(sizeof(char*) * (cub->m_height + 2));
+	if (map == 0)
+		free_list(&head);
     i = 0;
     while (i < cub->m_height + 2)
-         map[i++] = (char *)malloc(sizeof(char) * (cub->m_width + 2));
+	{
+        map[i] = (char *)malloc(sizeof(char) * (cub->m_width + 2));
+		if (map[i] == 0)
+		{
+			free_list(&head);
+			free_map(map, i);
+			return (1);
+		}
+		i++;
+	}
 
     i = 0;
     while (i < cub->m_width + 2)
@@ -109,6 +124,7 @@ int read_map(t_cub3d_data *cub)
         i++;
         curr = curr->next;
     }
+	free_list(&head);
 
     i = 0;
     while (i < cub->m_width + 2)
@@ -117,8 +133,12 @@ int read_map(t_cub3d_data *cub)
         i++;
     }
 	cub->map = map;
+
 	if (isClosed(cub))
-		return 1;
+	{
+		free_map(cub->map, cub->m_height + 2);
+		return (1);
+	}
 
     return 0;
 }

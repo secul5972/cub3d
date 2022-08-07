@@ -6,7 +6,7 @@
 /*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/06 21:50:40 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/07 16:39:38 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,7 @@ int main(int argc, char **argv)
      mlx_key_hook(cub.win, press_esc, 0);
      mlx_hook(cub.win, KeyExit_X_EVENT, LeaveWindowMask, &press_x_button, &cub);
      mlx_loop(cub.mlx);*/
+	//terminate
+	free_map(cub.map, cub.m_height + 2);
 	return (0);
 }
