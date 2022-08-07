@@ -44,12 +44,26 @@ int cub3d_init(t_cub3d_data *cub, t_img *img)
     return (0);
 }
 
-int	press_esc(int keycode)
+void	free_all(t_cub3d_data *cub)
 {
-	if (keycode == 53)
-		exit(0);
+	mlx_destroy_image(cub->mlx, cub->n_texture);
+	mlx_destroy_image(cub->mlx, cub->s_texture);
+	mlx_destroy_image(cub->mlx, cub->w_texture);
+	mlx_destroy_image(cub->mlx, cub->e_texture);
+	mlx_destroy_window(cub->mlx, cub->win);
+	free(cub->mlx);
+}
+
+int	press_esc(t_cub3d_data *cub)
+{
+	free_all(cub);
+	exit(0);
 	return (0);
 }
+
+/*
+int	press_esc(t_cub3d_data *cub)
+*/
 
 int file_open(t_cub3d_data *cub, char *cub_file)
 {
@@ -62,7 +76,15 @@ int file_open(t_cub3d_data *cub, char *cub_file)
 int	press_x_button(t_cub3d_data *cub)
 {
 	//mlx_destroy_window(cub->mlx, cub->win);
+	free_all(cub);
 	exit(0);
+	return (0);
+}
+
+int	press_key(int keycodem t_cub3d_data *cub)
+{
+	if (keycode == KEY_ESC)
+		press_esc(cub);
 	return (0);
 }
 
@@ -90,10 +112,12 @@ int main(int argc, char **argv)
 	// 	write(1, "f\n", 2);
 	// }
 	 /*mlx_put_image_to_window(cub.mlx, cub.win, cub.w_texture, 0, 0);
-     mlx_key_hook(cub.win, press_esc, 0);
+     //mlx_key_hook(cub.win, press_esc, 0);
+	 mlx_hook(mlx.win_ptr, KeyPress_X_EVENT, KeyPress_X_MASK, &press_key, &cub);
      mlx_hook(cub.win, KeyExit_X_EVENT, LeaveWindowMask, &press_x_button, &cub);
      mlx_loop(cub.mlx);*/
 	//terminate
 	free_map(cub.map, cub.m_height + 2);
+	free_all(&cub);
 	return (0);
 }

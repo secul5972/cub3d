@@ -20,6 +20,10 @@
 
 # define KeyExit_X_EVENT 17
 # define LeaveWindowMask 1L<<5
+# define KeyPress_X_EVENT 02
+# define KeyPress_X_MASK 1L<<0
+
+# define KEY_ESC 53
 
 typedef struct s_line_lst
 {
@@ -77,5 +81,6 @@ int		read_line(int fd, char **line);
 void	free_list(t_line_lst *head);
 void	free_map(char **map, int height);
 int		parsing(t_cub3d_data *cub);
+char	*ft_strdup(const char *src);
 
 #endif
