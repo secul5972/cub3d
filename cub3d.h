@@ -81,6 +81,5 @@ int		read_line(int fd, char **line);
 void	free_list(t_line_lst *head);
 void	free_map(char **map, int height);
 int		parsing(t_cub3d_data *cub);
-char	*ft_strdup(const char *src);
 
 #endif
