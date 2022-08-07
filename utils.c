@@ -31,9 +31,10 @@ void free_str(char **strs)
 
 int read_line(int fd, char **line)
 {
-	char buffer[100000];
-	int i;
-	char ch;
+	char	buffer[100000];
+	int		i;
+	char	ch;
+	
 	i = 0;
 	while (read(fd, &ch, 1) > 0)
 	{
@@ -48,7 +49,6 @@ int read_line(int fd, char **line)
 		return (-1);
 	*line = (char *)malloc(sizeof(char) * (i + 1));
 	ft_strcpy(*line, buffer, 0, i);
-	(*line)[i] = 0;
 	return i;
 }
 
