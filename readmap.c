@@ -6,7 +6,7 @@
 /*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:07:23 by secul5972         #+#    #+#             */
-/*   Updated: 2022/08/08 10:39:10 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/08 21:04:00 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int isClosed(t_cub3d_data *cub)
     return 0;
 }
 
-void	chk_char(char *line)
+int	chk_char(char *line)
 {
 	int i;
 
@@ -46,9 +46,10 @@ void	chk_char(char *line)
 	while (line[i])
 	{
 		if (line[i] != '0' && line[i] != '1' && line[i] != 'N' && line[i] != 'S' && line[i] != 'E' && line[i] != 'W' && line[i] != ' ')
-			line[i] = ' ';
+			return (1);
 		i++;
 	}
+	return (0);
 }
 
 
@@ -76,7 +77,11 @@ int read_map(t_cub3d_data *cub)
             break;
 		else if (len == 0)
 			continue;
-		chk_char(line);
+		if (chk_char(line))
+		{
+			free_list(&head);
+			return (1);
+		}
         cub->m_width = ft_max(len, cub->m_width);
         cub->m_height++;
         curr->next = malloc(sizeof(t_line_lst));
