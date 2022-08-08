@@ -6,7 +6,7 @@
 /*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:33:21 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/07 16:37:50 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/08 10:24:39 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int read_line(int fd, char **line)
 	char	ch;
 	
 	i = 0;
+	ch = 0;
 	while (read(fd, &ch, 1) > 0)
 	{
 		if (ch == '\n')
@@ -62,6 +63,7 @@ void free_list(t_line_lst *head)
 	if (head->next == 0)
 		return;
 	curr = head->next;
+	next = 0;
 	while (curr)
 	{
 		if (curr->line)
@@ -70,6 +72,7 @@ void free_list(t_line_lst *head)
 		free(curr);
 		curr = next;
 	}
+	curr = head;
 }
 
 void free_map(char **map, int height)

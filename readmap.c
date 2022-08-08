@@ -6,7 +6,7 @@
 /*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:07:23 by secul5972         #+#    #+#             */
-/*   Updated: 2022/08/07 16:32:49 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/08 10:39:10 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int read_map(t_cub3d_data *cub)
     cub->m_height = 0;
 
     curr = &head;
+	head.line = 0;
+	head.next = 0;
     while (1)
     {
         len = read_line(cub->fd, &line);
@@ -79,8 +81,12 @@ int read_map(t_cub3d_data *cub)
         cub->m_height++;
         curr->next = malloc(sizeof(t_line_lst));
 		if (curr->next == 0)
+		{
 			free_list(&head);
+			return (1);
+		}
         curr->next->next = 0;
+		curr->next->line = 0;
         curr->line = line;
         curr->len = len;
         curr = curr->next;
@@ -112,7 +118,7 @@ int read_map(t_cub3d_data *cub)
 
     i = 1;
     curr = &head;
-    while (curr)
+    while (curr->next)
     {
         map[i][0] = ' ';
         j = ft_strcpy(&map[i][1], curr->line, 0, curr->len) + 1;

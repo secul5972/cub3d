@@ -6,7 +6,7 @@
 /*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/07 16:39:38 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/08 10:40:08 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	free_all(t_cub3d_data *cub)
 
 int	press_esc(t_cub3d_data *cub)
 {
-	free_all(cub);
+	//free_all(cub);
 	exit(0);
 	return (0);
 }
@@ -76,12 +76,12 @@ int file_open(t_cub3d_data *cub, char *cub_file)
 int	press_x_button(t_cub3d_data *cub)
 {
 	//mlx_destroy_window(cub->mlx, cub->win);
-	free_all(cub);
+	//free_all(cub);
 	exit(0);
 	return (0);
 }
 
-int	press_key(int keycodem t_cub3d_data *cub)
+int	press_key(int keycode, t_cub3d_data *cub)
 {
 	if (keycode == KEY_ESC)
 		press_esc(cub);
