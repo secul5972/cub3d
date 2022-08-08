@@ -20,6 +20,10 @@
 
 # define KeyExit_X_EVENT 17
 # define LeaveWindowMask 1L<<5
+# define KeyPress_X_EVENT 02
+# define KeyPress_X_MASK 1L<<0
+
+# define KEY_ESC 53
 
 typedef struct s_line_lst
 {

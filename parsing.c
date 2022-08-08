@@ -21,7 +21,10 @@ int	get_rgb(char **elem, t_cub3d_data *cub) // return 0 - success, 1 - fail
 
 	rgb = ft_split(elem[1], ',');
 	if (rgb[3] != 0)
+	{
+		free_str(rgb);
 		return (1);
+	}
 	i = -1;
 	while (++i < 3)
 	{
@@ -30,7 +33,10 @@ int	get_rgb(char **elem, t_cub3d_data *cub) // return 0 - success, 1 - fail
 			break ;
 	}
 	if (i != 3)
+	{
+		free_str(rgb);
 		return (1);
+	}
 	if (ft_strcmp(elem[0], "F") == 0)
 	{
 		while (--i >= 0)
@@ -41,6 +47,7 @@ int	get_rgb(char **elem, t_cub3d_data *cub) // return 0 - success, 1 - fail
 		while (--i >= 0)
 			cub->c_rgb[i] = colors[i];
 	}
+	free_str(rgb);
 	return (0);
 }
 
@@ -69,10 +76,15 @@ int	get_elements(char *line, t_cub3d_data *cub) // return 0 - success, 1 - fail,
 
 	elem = ft_split(line, ' ');
 	if (!elem[0])
+	{
+		free_str(elem);
 		return (0);
+	}
 	if (is_invalid_elements(elem))
+	{
+		free_str(elem);
 		return (1);
-	printf("%s: %s\n", elem[0], elem[1]);
+	}
 	// mlx_xpm_file_to_image: 존재하지 않는 파일이면 null 반환
 	if (ft_strcmp(elem[0], "NO") == 0)
 		cub->n_texture = mlx_xpm_file_to_image(cub->mlx, elem[1], &img_width, &img_height);
@@ -85,8 +97,12 @@ int	get_elements(char *line, t_cub3d_data *cub) // return 0 - success, 1 - fail,
 	else if (ft_strcmp(elem[0], "F") == 0 || ft_strcmp(elem[0], "C") == 0)
 	{
 		if (get_rgb(elem, cub))
+		{
+			free_str(elem);
 			return (1);
+		}
 	}
+	free_str(elem);
 	return (0);
 }
 
