@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/11 15:06:59 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:12:05 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int	main(int argc, char **argv)
 	mlx_key_hook(cub.win, press_esc, 0);
 	mlx_hook(cub.win, KEYPRESS_X_EVENT, 1L<<0, &press_key, &cub);
 	mlx_hook(cub.win, KEYEXIT_X_EVENT, 1L<<5, &press_x_button, &cub);
+	//mlx_loop_hook(cub.mlx, &ray_casting_function_name, &cub);
 	mlx_loop(cub.mlx);
 	//terminate
 	free_map(cub.map, cub.m_height);

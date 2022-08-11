@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_ray.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:40:25 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/11 15:07:01 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:22:54 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,7 @@ void	get_ray(t_cub3d_data *cub)
 	double	multiple;
 
 	//plane vector
-	plane = 0.66;
-	if (cub->cdir.x < 0)
-		make_vec(&cub->plane, 0, plane);
-	else if (cub->cdir.x > 0)
-		make_vec(&cub->plane, 0, -plane);
-	else if (cub->cdir.y < 0)
-		make_vec(&cub->plane, plane, 0);
-	else if (cub->cdir.y > 0)
-		make_vec(&cub->plane, -plane, 0);
+	make_vec(&cub->plane, cub->cdir.y, -cub->cdir.x);
 	x = 0;
 	while (x < cub->w_width)
 	{
