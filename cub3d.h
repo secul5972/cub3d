@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/11 13:56:47 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:07:48 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ void	free_map(char **map, int height);
 void    make_vec(t_vec *v, double x, double y);
 int		parsing(t_cub3d_data *cub);
 void    fix_map_find_pos(t_cub3d_data *cub);
+void	get_ray(t_cub3d_data *cub);
 
 #endif

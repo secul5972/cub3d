@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+         #
+#    By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/03 12:57:22 by seungcoh          #+#    #+#              #
-#    Updated: 2022/08/11 13:46:35 by seungcoh         ###   ########.fr        #
+#    Updated: 2022/08/11 14:08:17 by chaekim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ MLX = -Lmlx -lmlx -framework OpenGL -framework Appkit
 NAME = cub3d
 SRCS = main.c parsing.c readmap.c utils.c\
 	ft_function/ft_split.c ft_function/ft_utils.c\
-	ft_function/ft_atoi.c find_pos.c
+	ft_function/ft_atoi.c find_pos.c get_ray.c
 	   
 OBJS = $(SRCS:.c=.o)
 

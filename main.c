@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/11 13:59:51 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:08:08 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int main(int argc, char **argv)
     //plane
 
     //ray
+	get_ray(&cub);
 
      mlx_put_image_to_window(cub.mlx, cub.win, cub.w_texture, 0, 0);
      mlx_key_hook(cub.win, press_esc, 0);
