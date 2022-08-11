@@ -6,7 +6,7 @@
 #    By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/11 15:04:40 by seungcoh          #+#    #+#              #
-#    Updated: 2022/08/11 15:11:24 by chaekim          ###   ########.fr        #
+#    Updated: 2022/08/11 16:00:41 by chaekim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ MLX = -Lmlx -lmlx -framework OpenGL -framework Appkit
 NAME = cub3d
 SRCS = main.c parsing.c read_map.c read_map2.c utils.c utils2.c\
 	ft_function/ft_split.c ft_function/ft_utils.c\
-	ft_function/ft_atoi.c find_pos.c get_ray.c
+	ft_function/ft_atoi.c find_pos.c get_ray.c press.c
 	   
 OBJS = $(SRCS:.c=.o)
 

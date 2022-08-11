@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/11 15:39:43 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/11 17:35:13 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 
 # include <stdio.h>
 
@@ -26,7 +27,14 @@
 /*# define LEAVEWINDOWMASK	1L << 5
 # define KEYPRESS_X_MASK	1L << 0*/
 
-# define KEY_ESC 53
+# define KEY_ESC	53
+# define KEY_W		13
+# define KEY_A		0
+# define KEY_S		1
+# define KEY_D		2
+
+# define KEY_LEFT	123
+# define KEY_RIGHT	124
 
 typedef struct s_line_lst
 {
@@ -77,18 +85,21 @@ typedef struct s_cub3d_data
 	int		m_width;
 	int		m_height;
 
-    //vec
-    t_vec cpos;
-    t_vec cdir;
-    t_vec plane;
-    
-    //dx
-    int dx[4];
-    int dy[4];
+	//vec
+	t_vec	cpos;
+	t_vec	cdir;
+	t_vec	plane;
+	t_vec	ray;
 
-    double xrate;
-    double yrate;
-}   t_cub3d_data;
+	//dx
+	int		dx[4];
+	int		dy[4];
+
+	double	xrate;
+	double	yrate;
+
+	double rotate;
+}	t_cub3d_data;
 
 int		read_map(t_cub3d_data *cub);
 char	**ft_split(char const *s, char c);
@@ -99,13 +110,14 @@ int		ft_max(int a, int b);
 void	free_str(char **strs);
 int		free_and_return(char **strs, int ret);
 int		read_line(int fd, char **line);
-int     free_list(t_line_lst *head);
+int		free_list(t_line_lst *head);
 int 	free_map(char **map, int height);
-void    make_vec(t_vec *v, double x, double y);
+void	make_vec(t_vec *v, double x, double y);
 int		parsing(t_cub3d_data *cub);
-void    fix_map_find_pos(t_cub3d_data *cub);
-int     get_lst(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
-int     lst_to_map(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
-void	get_ray(t_cub3d_data *cub);
+void	fix_map_find_pos(t_cub3d_data *cub);
+int		get_lst(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
+int		lst_to_map(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
+void	get_ray(t_cub3d_data *cub, int color);
+int		press_key(int keycode, t_cub3d_data *cub);
 
 #endif
