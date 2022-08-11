@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/11 15:12:05 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/11 15:44:10 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ int	main(int argc, char **argv)
 		return (p_error("Parsing Error\n", 15));
 	if (read_map(&cub))
 		return (p_error("Read Map Error\n", 16));
-    // for (int i = 0; i < cub.m_height + 2; i++)
+    // for (int i = 0; i < cub.m_height; i++)
     // {
-    //     for (int j = 0; j < cub.m_width + 2; j++)
+    //     for (int j = 0; j < cub.m_width; j++)
     //     {
     //         write(1, &cub.map[i][j], 1);
     //     }

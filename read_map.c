@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:07:23 by secul5972         #+#    #+#             */
-/*   Updated: 2022/08/11 15:00:14 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:41:49 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ int	read_map(t_cub3d_data *cub)
 		free_map(cub->map, cub->m_height);
 		return (1);
 	}
+    cub->xrate = (double)(cub->m_width) / cub->w_width;
+    cub->yrate = (double)(cub->m_height) / cub->w_height;
+
 	fix_map_find_pos(cub);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/11 15:07:03 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:39:43 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ typedef struct s_cub3d_data
     //dx
     int dx[4];
     int dy[4];
+
+    double xrate;
+    double yrate;
 }   t_cub3d_data;
 
 int		read_map(t_cub3d_data *cub);

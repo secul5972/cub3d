@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_ray.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:40:25 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/11 15:22:54 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/11 15:39:45 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	get_ray(t_cub3d_data *cub)
 		printf("rayX: %f, rayY: %f\n", ray.x, ray.y);
 
 		//Before DDA
+        
 
 		//DDA
 		x++;
