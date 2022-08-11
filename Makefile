@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+         #
+#    By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/03 12:57:22 by seungcoh          #+#    #+#              #
-#    Updated: 2022/08/11 14:08:17 by chaekim          ###   ########.fr        #
+#    Updated: 2022/08/11 14:59:46 by seungcoh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ RM = rm -f
 MLX = -Lmlx -lmlx -framework OpenGL -framework Appkit
 
 NAME = cub3d
-SRCS = main.c parsing.c readmap.c utils.c\
+SRCS = main.c parsing.c read_map.c read_map2.c utils.c\
 	ft_function/ft_split.c ft_function/ft_utils.c\
 	ft_function/ft_atoi.c find_pos.c get_ray.c
 	   

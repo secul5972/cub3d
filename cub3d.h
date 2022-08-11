@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/11 14:07:48 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/11 14:59:27 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ typedef struct s_cub3d_data
     t_vec cpos;
     t_vec cdir;
     t_vec plane;
-
+    
+    //dx
+    int dx[4];
+    int dy[4];
 }   t_cub3d_data;
 
 int		read_map(t_cub3d_data *cub);
@@ -92,10 +95,12 @@ int		ft_max(int a, int b);
 void	free_str(char **strs);
 int		read_line(int fd, char **line);
 int     free_list(t_line_lst *head);
-void	free_map(char **map, int height);
+int 	free_map(char **map, int height);
 void    make_vec(t_vec *v, double x, double y);
 int		parsing(t_cub3d_data *cub);
 void    fix_map_find_pos(t_cub3d_data *cub);
+int     get_lst(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
+int     lst_to_map(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
 void	get_ray(t_cub3d_data *cub);
 
 #endif

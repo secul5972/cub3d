@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:33:21 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/11 13:56:11 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:59:33 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int free_list(t_line_lst *head)
     return (1);
 }
 
-void free_map(char **map, int height)
+int free_map(char **map, int height)
 {
 	int i;
 
@@ -77,6 +77,7 @@ void free_map(char **map, int height)
 		i++;
 	}
 	free(map);
+    return (1);
 }
 
 void make_vec(t_vec *v, double x, double y)
