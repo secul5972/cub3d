@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_ray.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:40:25 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/11 17:44:17 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/11 20:14:28 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ void	get_ray(t_cub3d_data *cub, int color)
 		// ray vector
 		multiple = 2 * x / (double)cub->w_width - 1; // -1 <= 2 * x / w < 1
 
-		cub->ray.x = cub->cpos.x + cub->cdir.x + cub->plane.x * multiple;
-		cub->ray.y = cub->cpos.y + cub->cdir.y + cub->plane.y * multiple;
-		bresenham(cub, cub->cpos.x * 20, cub->cpos.y * 20, cub->ray.x * 20, cub->ray.y * 20, color);
+		cub->ray.x = cub->cdir.x + cub->plane.x * multiple;
+		cub->ray.y = cub->cdir.y + cub->plane.y * multiple;
+		bresenham(cub, cub->cpos.x * 20, cub->cpos.y * 20,  (cub->cpos.x + cub->ray.x) * 20, (cub->cpos.y + cub->ray.y) * 20, color);
 		//Before DDA
 
 		//DDA

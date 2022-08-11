@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda_algo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:43:29 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/11 17:41:41 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/11 20:36:20 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,97 +27,55 @@ void draw_box(t_cub3d_data *cub, t_vec v)
 // dda
 void dda(t_cub3d_data *cub, t_vec ray)
 {
-	t_vec Xside;
-	t_vec Yside;
-	int Xsidedir;
-	int Ysidedir;
-	double c1;
-	double c0;
-	double Xlen;
-	double Ylen;
+	t_vec mapPos;
+	t_vec dmapPos;
+	t_vec len;
+	t_vec dlen;
 
-	c1 = 0;
-	if (ray.x != 0)
-		c1 = ray.y / ray.x;
-	c0 = ray.x * cub->cpos.y - ray.y * cub->cpos.x;
+	mapPos.x = (int)cub->cpos.x;
+	mapPos.y = (int)cub->cpos.y;
 
+	dlen.x = abs(vec_scale(ray)/ray.x);
+	dlen.y = abs(vec_scale(ray)/ray.y);
 
-		Xside.x = (int)cub->cpos.x;
-		Yside.y = (int)cub->cpos.y;
-		if (ray.x == 0 && ray.y)
-		{
-			Xsidedir = 0;
-			Xside.x = 0;
-			Xside.y = 0;
-			if (ray.y > 0)
-				Ysidedir = 1;
-			else
-				Ysidedir = -1;
-			Yside.y++;
-		}
-		else if (ray.x == 0 && ray.y)
-		{
-			Xsidedir = 1;
-			Xside.x++;
-		}
-		else
-			Xsidedir = -1;
-		if (ray.x && ray.y)
-			Xside.y = c1 * Xside.x + c0;
-		else if (ray.x && ray.y == 0)
-			Xside.y = cub->cpos.y;
-		else
-			Xside.y = 0;
+	if (ray.x > 0)
+	{
+		dmapPos.x = 1;
+		len.x = (mapPos.x + 1 - cub->cpos.x) * dlen.x;
+	}
+	else
+	{
+		dmapPos.x = -1;
+		len.x = (cub->cpos.x - mapPos.x) * dlen.x;
+	}
 	
+	if (ray.y > 0)
+	{
+		dmapPos.y = 1;
+		len.y = (mapPos.y + 1 - cub->cpos.y) * dlen.y;
+	}
+	else
+	{
+		dmapPos.y = -1;
+		len.y = (cub->cpos.y - mapPos.y) * dlen.y;
+	}
 
-		
-		if (ray.y == 0)
-		{
-			Ysidedir = 0;
-			Yside.y = 0;
-		}
-		else if (ray.y > 0)
-		{
-			Ysidedir = 1;
-			Yside.y++;
-		}
-		else
-			Ysidedir = -1;
-		if (ray.y && ray.x)
-			Yside.x = (Yside.y - c0) / c1;
-		else if (ray.y && ray.x == 0)
-			Yside.x = cub->cpos.x;
-		else
-			Yside.x = 0;
-
-
-	Xlen = vec_scale(Xside);
-	Ylen = vec_scale(Yside);
-	printf("%f %f | %f %f | %f %f | %f %f | %d %d\n",cub->cpos.x, cub->cpos.y, ray.x, ray.y, Xside.x, Xside.y, Yside.x, Yside.y, Xsidedir, Ysidedir);
 	while (1)
 	{
-		if (Xlen < Ylen)
+		if (len.x < len.y)
 		{
-			if (cub->map[(int)Xside.y][(int)Xside.x] == '1')
-			{
-				draw_box(cub, Xside);
-				break;
-			}
-			Xside.x += Xsidedir;
-			Xside.y = c1 * Xside.x + c0;
-			Xlen = vec_scale(Xside);
-
+			mapPos.x += dmapPos.x;
+			len.x += dlen.x;
 		}
 		else
 		{
-			if (cub->map[(int)Yside.y][(int)Yside.x] == '1')
-			{
-				draw_box(cub, Yside);
-				break;
-			}
-			Yside.y += Ysidedir;
-			Yside.x = (Yside.y - c0) / c1;
-			Ylen = vec_scale(Yside);
+			mapPos.y += dmapPos.y;
+			len.y += dlen.y;
+		}
+		if (cub->map[(int)mapPos.y][(int)mapPos.y] == '1')
+		{
+			draw_box(cub, mapPos);
+			break;
 		}
 	}
 }
