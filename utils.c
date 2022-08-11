@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:33:21 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/11 13:56:11 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/11 14:48:51 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <stdio.h>
 
-void free_str(char **strs)
+void	free_str(char **strs)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (strs)
@@ -29,18 +28,18 @@ void free_str(char **strs)
 	}
 }
 
-int read_line(int fd, char **line)
+int	read_line(int fd, char **line)
 {
 	char	buffer[100000];
 	int		i;
 	char	ch;
-	
+
 	i = 0;
 	ch = 0;
 	while (read(fd, &ch, 1) > 0)
 	{
 		if (ch == '\n')
-			break;
+			break ;
 		buffer[i] = ch;
 		i++;
 	}
@@ -50,12 +49,12 @@ int read_line(int fd, char **line)
 		return (-1);
 	*line = (char *)malloc(sizeof(char) * (i + 1));
 	ft_strcpy(*line, buffer, 0, i);
-	return i;
+	return (i);
 }
 
-int free_list(t_line_lst *head)
+int	free_list(t_line_lst *head)
 {
-	t_line_lst *curr;
+	t_line_lst	*curr;
 
 	curr = head->next;
 	while (curr)
@@ -63,12 +62,12 @@ int free_list(t_line_lst *head)
 		free(curr->line);
 		curr = curr->next;
 	}
-    return (1);
+	return (1);
 }
 
-void free_map(char **map, int height)
+void	free_map(char **map, int height)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < height)
@@ -79,8 +78,8 @@ void free_map(char **map, int height)
 	free(map);
 }
 
-void make_vec(t_vec *v, double x, double y)
+void	make_vec(t_vec *v, double x, double y)
 {
-    v->x = x;
-    v->y = y;
+	v->x = x;
+	v->y = y;
 }

@@ -6,24 +6,23 @@
 /*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/11 14:08:08 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/11 14:54:55 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int p_error(char *str, int len)
+int	p_error(char *str, int len)
 {
-    write(2, str, len);
-    return (1);
+	write(2, str, len);
+	return (1);
 }
 
-int cub3d_init(t_cub3d_data *cub, t_img *img)
+int	cub3d_init(t_cub3d_data *cub, t_img *img)
 {
-    cub->mlx = mlx_init();
-    cub->w_width = 800;
-    cub->w_height = 800;
-	//init elements
+	cub->mlx = mlx_init();
+	cub->w_width = 800;
+	cub->w_height = 800;
 	cub->n_texture = 0;
 	cub->s_texture = 0;
 	cub->w_texture = 0;
@@ -40,8 +39,8 @@ int cub3d_init(t_cub3d_data *cub, t_img *img)
 	&img->line_length, &img->endian);
 	if (cub->mlx == 0 || cub->win == 0 || img->img_ptr == 0 || \
 	img->data_ptr == 0)
-        return (1);
-    return (0);
+		return (1);
+	return (0);
 }
 
 void	free_all(t_cub3d_data *cub)
@@ -61,21 +60,16 @@ int	press_esc(t_cub3d_data *cub)
 	return (0);
 }
 
-/*
-int	press_esc(t_cub3d_data *cub)
-*/
-
-int file_open(t_cub3d_data *cub, char *cub_file)
+int	file_open(t_cub3d_data *cub, char *cub_file)
 {
 	cub ->fd = open(cub_file, O_RDONLY);
 	if (cub->fd < 0)
-        return (1);
+		return (1);
 	return (0);
 }
 
 int	press_x_button(t_cub3d_data *cub)
 {
-	mlx_destroy_window(cub->mlx, cub->win);
 	free_all(cub);
 	exit(0);
 	return (0);
@@ -88,20 +82,20 @@ int	press_key(int keycode, t_cub3d_data *cub)
 	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-    t_cub3d_data cub;
+	t_cub3d_data	cub;
 
 	if (argc != 2)
-		return p_error("Arguments Error\n", 17);
-    if (cub3d_init(&cub, &cub.img))
-        return p_error("Mlx Error\n", 11);
+		return (p_error("Arguments Error\n", 17));
+	if (cub3d_init(&cub, &cub.img))
+		return (p_error("Mlx Error\n", 11));
 	if (file_open(&cub, argv[1]))
-		return p_error("File Error\n", 12);
+		return (p_error("File Error\n", 12));
 	if (parsing(&cub))
-		return p_error("Parsing Error\n", 15);
+		return (p_error("Parsing Error\n", 15));
 	if (read_map(&cub))
-	 	return p_error("Read Map Error\n", 16);
+		return (p_error("Read Map Error\n", 16));
 
     // for (int i = 0; i < cub.m_height + 2; i++)
     // {
@@ -118,11 +112,11 @@ int main(int argc, char **argv)
     //ray
 	get_ray(&cub);
 
-     mlx_put_image_to_window(cub.mlx, cub.win, cub.w_texture, 0, 0);
-     mlx_key_hook(cub.win, press_esc, 0);
-	 mlx_hook(cub.win, KeyPress_X_EVENT, KeyPress_X_MASK, &press_key, &cub);
-     mlx_hook(cub.win, KeyExit_X_EVENT, LeaveWindowMask, &press_x_button, &cub);
-     mlx_loop(cub.mlx);
+	//mlx_put_image_to_window(cub.mlx, cub.win, cub.w_texture, 0, 0);
+	mlx_key_hook(cub.win, press_esc, 0);
+	mlx_hook(cub.win, KEYPRESS_X_EVENT, 1L<<0, &press_key, &cub);
+	mlx_hook(cub.win, KEYEXIT_X_EVENT, 1L<<5, &press_x_button, &cub);
+	mlx_loop(cub.mlx);
 	//terminate
 	free_map(cub.map, cub.m_height);
 	free_all(&cub);
