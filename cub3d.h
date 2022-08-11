@@ -43,6 +43,12 @@ typedef struct s_img
     int endian;
 }   t_img;
 
+typedef struct s_vec
+{
+    double x;
+    double y;
+}   t_vec;
+
 typedef struct s_cub3d_data
 {
     void *win;
@@ -69,6 +75,11 @@ typedef struct s_cub3d_data
 	char	**map;
 	int		m_width;
 	int		m_height;
+
+    //vec
+    t_vec cpos;
+    t_vec cdir;
+    t_vec plane;
 
 }   t_cub3d_data;
 

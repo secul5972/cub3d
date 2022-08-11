@@ -151,5 +151,6 @@ int read_map(t_cub3d_data *cub)
 		return (1);
 	}
 
+    // 플레이어 위치, 방향 맵에서 읽기 
     return 0;
 }

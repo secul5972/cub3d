@@ -96,7 +96,6 @@ int main(int argc, char **argv)
 		return p_error("Arguments Error\n", 17);
     if (cub3d_init(&cub, &cub.img))
         return p_error("Mlx Error\n", 11);
-            printf("aaa\n");
 	if (file_open(&cub, argv[1]))
 		return p_error("File Error\n", 12);
 	if (parsing(&cub))
@@ -104,15 +103,21 @@ int main(int argc, char **argv)
 	if (read_map(&cub))
 	 	return p_error("Read Map Error\n", 16);
 
-	for (int i = 0; i < cub.m_height + 2; i++)
-	{
-		for (int j = 0; j < cub.m_width + 2; j++)
-		{
-			write(1, &cub.map[i][j], 1);
-		}
-		write(1, "f\n", 2);
-	}
-	 mlx_put_image_to_window(cub.mlx, cub.win, cub.w_texture, 0, 0);
+    // for (int i = 0; i < cub.m_height + 2; i++)
+    // {
+    //     for (int j = 0; j < cub.m_width + 2; j++)
+    //     {
+    //         write(1, &cub.map[i][j], 1);
+    //     }
+    //     write(1, "f\n", 2);
+    // }
+
+
+    //plane
+
+    //ray
+    
+     mlx_put_image_to_window(cub.mlx, cub.win, cub.w_texture, 0, 0);
      mlx_key_hook(cub.win, press_esc, 0);
 	 mlx_hook(cub.win, KeyPress_X_EVENT, KeyPress_X_MASK, &press_key, &cub);
      mlx_hook(cub.win, KeyExit_X_EVENT, LeaveWindowMask, &press_x_button, &cub);
