@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/08 21:05:36 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/11 13:59:51 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,14 @@ int main(int argc, char **argv)
     //plane
 
     //ray
-    
+
      mlx_put_image_to_window(cub.mlx, cub.win, cub.w_texture, 0, 0);
      mlx_key_hook(cub.win, press_esc, 0);
 	 mlx_hook(cub.win, KeyPress_X_EVENT, KeyPress_X_MASK, &press_key, &cub);
      mlx_hook(cub.win, KeyExit_X_EVENT, LeaveWindowMask, &press_x_button, &cub);
      mlx_loop(cub.mlx);
 	//terminate
-	free_map(cub.map, cub.m_height + 2);
+	free_map(cub.map, cub.m_height);
 	free_all(&cub);
 	return (0);
 }

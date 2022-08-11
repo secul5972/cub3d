@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readmap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:07:23 by secul5972         #+#    #+#             */
-/*   Updated: 2022/08/08 21:04:00 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/11 13:56:51 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ int read_map(t_cub3d_data *cub)
 	cub->m_width = 0;
     cub->m_height = 0;
 
-    curr = &head;
 	head.line = 0;
 	head.next = 0;
+    curr = &head;
+
     while (1)
     {
         len = read_line(cub->fd, &line);
@@ -78,22 +79,15 @@ int read_map(t_cub3d_data *cub)
 		else if (len == 0)
 			continue;
 		if (chk_char(line))
-		{
-			free_list(&head);
-			return (1);
-		}
+			return free_list(&head);
         cub->m_width = ft_max(len, cub->m_width);
         cub->m_height++;
         curr->next = malloc(sizeof(t_line_lst));
 		if (curr->next == 0)
-		{
-			free_list(&head);
-			return (1);
-		}
+			return free_list(&head);
         curr->next->next = 0;
-		curr->next->line = 0;
-        curr->line = line;
-        curr->len = len;
+		curr->next->line = line;
+        curr->next->len = len;
         curr = curr->next;
     }
     close(cub->fd);
@@ -152,5 +146,6 @@ int read_map(t_cub3d_data *cub)
 	}
 
     // 플레이어 위치, 방향 맵에서 읽기 
+    fix_map_find_pos(cub);
     return 0;
 }
