@@ -6,13 +6,13 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:40:25 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/11 17:13:34 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/11 17:44:17 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	bresenham(t_cub3d_data *cub, int startX, int startY, int finishX, int finishY)
+void	bresenham(t_cub3d_data *cub, int startX, int startY, int finishX, int finishY, int color)
 {
 
 	int x = startX;
@@ -39,7 +39,7 @@ void	bresenham(t_cub3d_data *cub, int startX, int startY, int finishX, int finis
 				y += Yfactor;
 				f += 2 * (h - w);
 			}
-			mlx_pixel_put(cub->mlx, cub->win, x, y, 0x00FFFF00);
+			mlx_pixel_put(cub->mlx, cub->win, x, y, color);//0x00FFFF00
 		}
 	}
 	else
@@ -56,33 +56,31 @@ void	bresenham(t_cub3d_data *cub, int startX, int startY, int finishX, int finis
 				x += Xfactor;
 				f += 2 * (w - h);
 			}
-			mlx_pixel_put(cub->mlx, cub->win, x, y, 0x00FFFF00);
+			mlx_pixel_put(cub->mlx, cub->win, x, y, color);
 		}
 	}
 }
 
-void	get_ray(t_cub3d_data *cub)
+void	get_ray(t_cub3d_data *cub, int color)
 {
-	t_vec	ray;
 	int		x;
 	double	multiple;
 
 	//plane vector
-	make_vec(&cub->plane, cub->cdir.y, -cub->cdir.x);
+	//make_vec(&cub->plane, cub->cdir.y, -cub->cdir.x);
 	x = 0;
 	while (x < cub->w_width)
 	{
 		// ray vector
 		multiple = 2 * x / (double)cub->w_width - 1; // -1 <= 2 * x / w < 1
-		ray.x = cub->cdir.x + cub->plane.x * multiple;
-		ray.y = cub->cdir.y + cub->plane.y * multiple;
-		//printf("rayX: %f, rayY: %f\n", ray.x, ray.y);
-		//bresenham(cub, cub->cpos.x * cub->xrate, cub->cpos.y * cub->yrate, (cub->cpos.x + ray.x) * cub->xrate, (cub->cpos.y + ray.y) * cub->yrate);
+
+		cub->ray.x = cub->cpos.x + cub->cdir.x + cub->plane.x * multiple;
+		cub->ray.y = cub->cpos.y + cub->cdir.y + cub->plane.y * multiple;
+		bresenham(cub, cub->cpos.x * 20, cub->cpos.y * 20, cub->ray.x * 20, cub->ray.y * 20, color);
 		//Before DDA
-        
 
 		//DDA
-        dda(cub, ray);
+        dda(cub, cub->ray);
 		x++;
 	}
 }
