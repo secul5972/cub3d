@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_ray.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:40:25 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/11 15:57:16 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/11 17:13:34 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,15 @@ void	get_ray(t_cub3d_data *cub)
 	{
 		// ray vector
 		multiple = 2 * x / (double)cub->w_width - 1; // -1 <= 2 * x / w < 1
-		ray.x = cub->cpos.x + cub->cdir.x + cub->plane.x * multiple;
-		ray.y = cub->cpos.y + cub->cdir.y + cub->plane.y * multiple;
-		printf("rayX: %f, rayY: %f\n", ray.x, ray.y);
-		bresenham(cub, cub->cpos.x * cub->xrate, cub->cpos.y * cub->yrate, ray.x * cub->xrate, ray.y * cub->yrate);
+		ray.x = cub->cdir.x + cub->plane.x * multiple;
+		ray.y = cub->cdir.y + cub->plane.y * multiple;
+		//printf("rayX: %f, rayY: %f\n", ray.x, ray.y);
+		//bresenham(cub, cub->cpos.x * cub->xrate, cub->cpos.y * cub->yrate, (cub->cpos.x + ray.x) * cub->xrate, (cub->cpos.y + ray.y) * cub->yrate);
 		//Before DDA
         
 
 		//DDA
+        dda(cub, ray);
 		x++;
 	}
 }

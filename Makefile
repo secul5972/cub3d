@@ -3,22 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+         #
+#    By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/11 15:04:40 by seungcoh          #+#    #+#              #
-#    Updated: 2022/08/11 15:11:24 by chaekim          ###   ########.fr        #
+#    Updated: 2022/08/11 17:14:17 by seungcoh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = gcc
 RM = rm -f
 #CFLAGS = -Wall -Wextra -Werror
-MLX = -Lmlx -lmlx -framework OpenGL -framework Appkit
+MLX = -Lmlx -lmlx -framework OpenGL -framework Appkit -lm
 
 NAME = cub3d
 SRCS = main.c parsing.c read_map.c read_map2.c utils.c utils2.c\
 	ft_function/ft_split.c ft_function/ft_utils.c\
-	ft_function/ft_atoi.c find_pos.c get_ray.c
+	ft_function/ft_atoi.c find_pos.c get_ray.c dda_algo.c\
 	   
 OBJS = $(SRCS:.c=.o)
 

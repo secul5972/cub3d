@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/11 15:39:43 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/11 17:13:24 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 
 # include <stdio.h>
 
@@ -107,5 +108,7 @@ void    fix_map_find_pos(t_cub3d_data *cub);
 int     get_lst(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
 int     lst_to_map(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
 void	get_ray(t_cub3d_data *cub);
+void    dda(t_cub3d_data *cub, t_vec ray);
+double  vec_scale(t_vec v);
 
 #endif
