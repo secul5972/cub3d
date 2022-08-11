@@ -6,17 +6,65 @@
 /*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:40:25 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/11 15:22:54 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/11 15:45:30 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	bresenham(t_cub3d_data *cub, int startX, int startY, int finishX, int finishY)
+{
+
+	int x = startX;
+	int y = startY;
+	int Xfactor = finishX < startX ? -1 : 1;
+	int Yfactor = finishY < startY ? -1 : 1;
+
+	int w = abs(finishX - startX); // -300
+	int h = abs(finishY - startY); // -200
+
+	int f;
+
+	if (w > h)
+	{
+		f = (2 * h) - w;
+		for (x = startX; x != finishX; x += Xfactor)
+		{
+			if (f < 0)
+			{
+				f += 2 * h;
+			}
+			else
+			{
+				y += Yfactor;
+				f += 2 * (h - w);
+			}
+			mlx_pixel_put(cub->mlx, cub->win, x, y, 0x00FFFF00);
+		}
+	}
+	else
+	{
+		f = (2 * w) - h;
+		for (y = startY; y != finishY; y += Yfactor)
+		{
+			if (f < 0)
+			{
+				f += 2 * w;
+			}
+			else
+			{
+				x += Xfactor;
+				f += 2 * (w - h);
+			}
+			mlx_pixel_put(cub->mlx, cub->win, x, y, 0x00FFFF00);
+		}
+	}
+}
+
 void	get_ray(t_cub3d_data *cub)
 {
 	t_vec	ray;
 	int		x;
-	double	plane;
 	double	multiple;
 
 	//plane vector
@@ -29,7 +77,7 @@ void	get_ray(t_cub3d_data *cub)
 		ray.x = cub->cdir.x + cub->plane.x * multiple;
 		ray.y = cub->cdir.y + cub->plane.y * multiple;
 		printf("rayX: %f, rayY: %f\n", ray.x, ray.y);
-
+		bresenham(cub, cub->cpos.x, cub->cpos.y, ray.x, ray.y);
 		//Before DDA
 
 		//DDA
