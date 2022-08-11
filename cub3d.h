@@ -13,10 +13,12 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-// # include "mlx/mlx.h"
+# include "mlx/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+
+#include <stdio.h>
 
 # define KeyExit_X_EVENT 17
 # define LeaveWindowMask 1L<<5
