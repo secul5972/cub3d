@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:43:29 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/12 15:20:29 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:35:32 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,32 +55,31 @@ void dda(t_cub3d_data *cub, t_vec ray)
 	{
 		if (len.x < len.y)
 		{
-			a = len.x / scale;
+			// a = len.x / scale;
 			mapPos.x += dmapPos.x;
 			len.x += dlen.x;
 			side = 1;
 		}
 		else
 		{
-			a = len.y / scale;
+			// a = len.y / scale;
 			mapPos.y += dmapPos.y;
 			len.y += dlen.y;
 			side = 0;
 		}
 		if (cub->map[(int)mapPos.y][(int)mapPos.x] == '1')
 		{
-			t_vec start;
-			t_vec end;
+			// t_vec start;
+			// t_vec end;
 
-			start.x = cub->cpos.x * cub->xrate;
-			start.y = cub->cpos.y * cub->xrate;
+			// start.x = cub->cpos.x * cub->xrate;
+			// start.y = cub->cpos.y * cub->xrate;
 
-	
-			end.x = (cub->cpos.x + a * ray.x) * cub->xrate;
-			end.y = (cub->cpos.y + a * ray.y) * cub->xrate;
-			bresenham(cub, start.x, start.y, end.x, end.y, 0x00FFFF00);
-			printf("%d %f %d %d\n",side, a, (int)mapPos.y, (int)mapPos.x);
-			printf("%f %f %f\n", len.x, len.y, scale);
+			// end.x = (cub->cpos.x + a * ray.x) * cub->xrate;
+			// end.y = (cub->cpos.y + a * ray.y) * cub->xrate;
+			// bresenham(cub, start.x, start.y, end.x, end.y, 0x00FFFF00);
+			// printf("%d %f %d %d\n",side, a, (int)mapPos.y, (int)mapPos.x);
+			// printf("%f %f %f\n", len.x, len.y, scale);
 			break;
 		}
 	}
