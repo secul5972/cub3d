@@ -34,6 +34,7 @@ void dda(t_cub3d_data *cub, t_vec ray)
 	t_vec len;
 	t_vec dlen;
 	int side;
+    double scale = vec_scale(ray);
 
 	mapPos.x = (int)cub->cpos.x;
 	mapPos.y = (int)cub->cpos.y;
@@ -79,8 +80,19 @@ void dda(t_cub3d_data *cub, t_vec ray)
 		}
 		if (cub->map[(int)mapPos.y][(int)mapPos.y] == '1')
 		{
-
-			draw_box(cub, mapPos, side);
+            double a;
+            if (side)
+            {
+                a = sqrt(len.x * len.x / (scale * scale));
+                bresenham(cub, cub->cpos.x * cub->xrate, cub->cpos.y * cub->xrate,  (cub->cpos.x + a * ray.x)*cub->xrate,(cub->cpos.y + a * ray.y)*cub->xrate ,0x00FFFF00);
+            }
+            else
+            {
+                a = sqrt(len.y * len.y / (scale * scale));
+                bresenham(cub, cub->cpos.x * cub->xrate, cub->cpos.y * cub->xrate,  (cub->cpos.x + a * ray.x)*cub->xrate,(cub->cpos.y + a * ray.y)*cub->xrate ,0x00FFFF00);
+            }
+            printf("%f %d %d\n", a, (int)mapPos.y, (int)mapPos.x);
+			//draw_box(cub, mapPos, side);
 			break;
 		}
 	}

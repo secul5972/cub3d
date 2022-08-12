@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:40:25 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/12 13:00:26 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/12 13:40:54 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	get_ray(t_cub3d_data *cub, int color)
 
 		cub->ray.x = cub->cdir.x + cub->plane.x * multiple;
 		cub->ray.y = cub->cdir.y + cub->plane.y * multiple;
-		bresenham(cub, cub->cpos.x * cub->xrate, cub->cpos.y * cub->xrate,  (cub->cpos.x + cub->ray.x) * cub->xrate, (cub->cpos.y + cub->ray.y) * cub->xrate, color);
+		//bresenham(cub, cub->cpos.x * cub->xrate, cub->cpos.y * cub->xrate,  (cub->cpos.x + cub->ray.x * 0.5) * cub->xrate, (cub->cpos.y + cub->ray.y*0.5) * cub->xrate, color);
 		//Before DDA
 
 		//DDA
