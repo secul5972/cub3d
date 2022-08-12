@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   press.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:00:04 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/12 13:31:56 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/12 14:34:31 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,31 @@ void	reset_black(t_cub3d_data *cub)
 		j = 0;
 		while (j < (int)cub->w_width)
 		{
-			cub->img.data_ptr[i * (int)cub->w_width + j] = 0x00000000;
+			cub->img.data_ptr[i * (int)cub->w_width + j] = 0;
 			//mlx_pixel_put(cub->mlx, cub->win, j, i, 0x00000000);
 			j++;
 		}
 		i++;
 	}
-	mlx_put_image_to_window(cub->mlx, cub->win, cub->img.img_ptr, 0, 0);
+    mlx_put_image_to_window(cub->mlx, cub->win, cub->img.img_ptr, 0, 0);
+
+    for(int i=0;i<cub->m_height;i++)
+    {
+        for(int j=0;j<cub->m_width;j++)
+        {
+            if (cub->map[i][j] == '1')
+            {
+                printf("%d %d\n", i, j);
+                for(int a = i * cub->xrate; a < (i+1)*cub->xrate;a++)
+                {
+                    for(int b = j * cub->xrate; b < (j+1)*cub->xrate;b++)
+                    {
+                        mlx_pixel_put(cub->mlx, cub->win, b, a, 0xFF0000);
+                    }
+                }
+            }
+        }
+    }
 }
 
 void rotate(t_cub3d_data *cub, double direction)

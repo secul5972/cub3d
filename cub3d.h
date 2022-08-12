@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/12 13:16:48 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/12 14:25:06 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_line_lst
 typedef struct s_img
 {
 	void	*img_ptr;
-	char	*data_ptr;
+	int     *data_ptr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;

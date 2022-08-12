@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/12 13:34:17 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/12 14:25:20 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	cub3d_init(t_cub3d_data *cub, t_img *img)
 	cub->frameTime = 0.1;
 	cub->win = mlx_new_window(cub->mlx, cub->w_width, cub->w_height, "cub3d");
 	img->img_ptr = mlx_new_image(cub->mlx, cub->w_width, cub->w_height);
-	img->data_ptr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel, \
+	img->data_ptr = (int *)mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel, \
 	&img->line_length, &img->endian);
 	if (cub->mlx == 0 || cub->win == 0 || img->img_ptr == 0 || \
 	img->data_ptr == 0)

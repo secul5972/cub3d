@@ -12,20 +12,6 @@
 
 #include "cub3d.h"
 
-// draw cube func
-void draw_box(t_cub3d_data *cub, t_vec v, int side)
-{
-	printf("%f %f\n", v.x * cub->xrate , v.y*cub->xrate);
-	if (side)
-	{
-		bresenham(cub, v.x * cub->xrate, v.y* cub->xrate, (v.x + 1)* cub->xrate, v.y* cub->xrate, 0xFF00FF00);
-	}
-	else
-	{
-		bresenham(cub, v.x* cub->xrate, v.y* cub->xrate, v.x* cub->xrate, (v.y + 1)* cub->xrate, 0xFF00FF00);
-	}
-}
-
 // dda
 void dda(t_cub3d_data *cub, t_vec ray)
 {
@@ -91,8 +77,7 @@ void dda(t_cub3d_data *cub, t_vec ray)
                 a = sqrt(len.y * len.y / (scale * scale));
                 bresenham(cub, cub->cpos.x * cub->xrate, cub->cpos.y * cub->xrate,  (cub->cpos.x + a * ray.x)*cub->xrate,(cub->cpos.y + a * ray.y)*cub->xrate ,0x00FFFF00);
             }
-            printf("%f %d %d\n", a, (int)mapPos.y, (int)mapPos.x);
-			//draw_box(cub, mapPos, side);
+            //printf("%f %d %d\n", a, (int)mapPos.y, (int)mapPos.x);
 			break;
 		}
 	}
