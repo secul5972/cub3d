@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:07:23 by secul5972         #+#    #+#             */
-/*   Updated: 2022/08/11 16:29:58 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:57:47 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,8 @@ int	read_map(t_cub3d_data *cub)
 	}
     cub->xrate = (double)(cub->w_width) / cub->m_width;
     cub->yrate = (double)(cub->w_height) / cub->m_height;
-    cub->xrate = cub->xrate > cub->yrate ? cub->yrate : cub->xrate;
+    cub->xrate = cub->xrate > cub->yrate ? (int)cub->yrate : (int)cub->xrate;
     cub->yrate = cub->xrate;
-
 	fix_map_find_pos(cub);
 	return (0);
 }

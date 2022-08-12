@@ -6,14 +6,14 @@
 #    By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/11 15:04:40 by seungcoh          #+#    #+#              #
-#    Updated: 2022/08/11 17:43:52 by seungcoh         ###   ########.fr        #
+#    Updated: 2022/08/12 12:54:05 by seungcoh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = gcc -g
 RM = rm -f
 #CFLAGS = -Wall -Wextra -Werror
-MLX = -Lmlx -lmlx -framework OpenGL -framework Appkit -lm
+MLX = -Lmlx -lmlx -framework OpenGL -framework Appkit -lm 
 
 NAME = cub3d
 SRCS = main.c parsing.c read_map.c read_map2.c utils.c utils2.c\

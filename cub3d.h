@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/11 17:44:34 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:38:28 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,6 @@ void	get_ray(t_cub3d_data *cub, int color);
 void    dda(t_cub3d_data *cub, t_vec ray);
 double  vec_scale(t_vec v);
 int		press_key(int keycode, t_cub3d_data *cub);
+void	bresenham(t_cub3d_data *cub, int startX, int startY, int finishX, int finishY, int color);
 
 #endif
