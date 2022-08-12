@@ -1,4 +1,4 @@
-	/* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   dda_algo.c                                         :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:43:29 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/12 12:38:14 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:20:29 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void dda(t_cub3d_data *cub, t_vec ray)
 	t_vec len;
 	t_vec dlen;
 	int side;
-    double scale = vec_scale(ray);
+	double scale = vec_scale(ray);
 
 	mapPos.x = (int)cub->cpos.x;
 	mapPos.y = (int)cub->cpos.y;
@@ -50,34 +50,37 @@ void dda(t_cub3d_data *cub, t_vec ray)
 		len.y = (cub->cpos.y - mapPos.y) * dlen.y;
 	}
 
+	double a;
 	while (1)
 	{
 		if (len.x < len.y)
 		{
+			a = len.x / scale;
 			mapPos.x += dmapPos.x;
 			len.x += dlen.x;
 			side = 1;
 		}
 		else
 		{
+			a = len.y / scale;
 			mapPos.y += dmapPos.y;
 			len.y += dlen.y;
 			side = 0;
 		}
-		if (cub->map[(int)mapPos.y][(int)mapPos.y] == '1')
+		if (cub->map[(int)mapPos.y][(int)mapPos.x] == '1')
 		{
-            double a;
-            if (side)
-            {
-                a = sqrt(len.x * len.x / (scale * scale));
-                bresenham(cub, cub->cpos.x * cub->xrate, cub->cpos.y * cub->xrate,  (cub->cpos.x + a * ray.x)*cub->xrate,(cub->cpos.y + a * ray.y)*cub->xrate ,0x00FFFF00);
-            }
-            else
-            {
-                a = sqrt(len.y * len.y / (scale * scale));
-                bresenham(cub, cub->cpos.x * cub->xrate, cub->cpos.y * cub->xrate,  (cub->cpos.x + a * ray.x)*cub->xrate,(cub->cpos.y + a * ray.y)*cub->xrate ,0x00FFFF00);
-            }
-            //printf("%f %d %d\n", a, (int)mapPos.y, (int)mapPos.x);
+			t_vec start;
+			t_vec end;
+
+			start.x = cub->cpos.x * cub->xrate;
+			start.y = cub->cpos.y * cub->xrate;
+
+	
+			end.x = (cub->cpos.x + a * ray.x) * cub->xrate;
+			end.y = (cub->cpos.y + a * ray.y) * cub->xrate;
+			bresenham(cub, start.x, start.y, end.x, end.y, 0x00FFFF00);
+			printf("%d %f %d %d\n",side, a, (int)mapPos.y, (int)mapPos.x);
+			printf("%f %f %f\n", len.x, len.y, scale);
 			break;
 		}
 	}
