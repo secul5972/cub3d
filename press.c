@@ -6,7 +6,7 @@
 /*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:00:04 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/12 13:14:07 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/12 13:25:24 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,26 @@ int press_esc(t_cub3d_data *cub)
 	return (0);
 }
 
+void	reset_black(t_cub3d_data *cub)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < (int)cub->w_height)
+	{
+		j = 0;
+		while (j < (int)cub->w_width)
+		{
+			cub->img.data_ptr[i * (int)cub->w_width + j] = 0x00000000;
+			//mlx_pixel_put(cub->mlx, cub->win, j, i, 0x00000000);
+			j++;
+		}
+		i++;
+	}
+	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
+}
+
 void rotate(t_cub3d_data *cub, double direction)
 {
 	double tmp;
@@ -28,7 +48,7 @@ void rotate(t_cub3d_data *cub, double direction)
 	angle = cub->rotate_angle * cub->frameTime;
 	if (direction < 0)
 		angle = -angle;
-	get_ray(cub, 0x00000000);
+	reset_black(cub);
 	cub->cdir.x = cub->cdir.x * cos(angle) - cub->cdir.y * sin(angle);
 	cub->cdir.y = tmp * sin(angle) + cub->cdir.y * cos(angle);
 	tmp = cub->plane.x;
@@ -39,7 +59,7 @@ void rotate(t_cub3d_data *cub, double direction)
 
 void	move(t_cub3d_data *cub, char target, double direction)
 {
-	get_ray(cub, 0x00000000);
+	reset_black(cub);
 	if (target == 'x')
 		cub->cpos.x += direction * cub->frameTime;
 	else
@@ -49,6 +69,7 @@ void	move(t_cub3d_data *cub, char target, double direction)
 
 int press_key(int keycode, t_cub3d_data *cub)
 {
+
 	if (keycode == KEY_W)
 	{
 		if (cub->map[(int)cub->cpos.y - 1][(int)cub->cpos.x] == '0')
