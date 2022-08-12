@@ -6,7 +6,7 @@
 /*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:00:04 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/12 13:25:24 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/12 13:31:56 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	reset_black(t_cub3d_data *cub)
 		}
 		i++;
 	}
-	mlx_put_image_to_window(cub->mlx, cub->win, cub->img, 0, 0);
+	mlx_put_image_to_window(cub->mlx, cub->win, cub->img.img_ptr, 0, 0);
 }
 
 void rotate(t_cub3d_data *cub, double direction)
