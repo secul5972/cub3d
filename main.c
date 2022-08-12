@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/12 13:10:59 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/12 13:17:09 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	cub3d_init(t_cub3d_data *cub, t_img *img)
 	cub->dy[3] = -1;
 	cub->m_width = 0;
 	cub->m_height = 0;
-	cub->rotate = 5;
+	cub->rotate_angle = 5;
+	cub->frameTime = 0.01;
 	cub->win = mlx_new_window(cub->mlx, cub->w_width, cub->w_height, "cub3d");
 	img->img_ptr = mlx_new_image(cub->mlx, cub->w_width, cub->w_height);
 	img->data_ptr = mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel, \
@@ -101,19 +102,15 @@ int	main(int argc, char **argv)
     //     }
     //     write(1, "f\n", 2);
     // }
-	// plane
 	
+	// plane
 	make_vec(&cub.plane, cub.cdir.y, -cub.cdir.x);
 	// ray
     
 	get_ray(&cub, 0x00FFFF00);
-	//mlx_put_image_to_window(cub.mlx, cub.win, cub.w_texture, 0, 0);
 	mlx_hook(cub.win, KEYPRESS_X_EVENT, 1L<<0, &press_key, &cub);
 	mlx_hook(cub.win, KEYEXIT_X_EVENT, 1L<<5, &press_x_button, &cub);
 	//mlx_loop_hook(cub.mlx, &get_ray, &cub);
-	//bresenham(&cub, cub.cpos.x * 20, cub.cpos.y * 20, cub.ray.x * 20, cub.ray.y * 20, 0x00FFFF00);
-	//dot(&cub, cub.cpos.x, cub.cpos.y, 0xFFFFFF);
-	//mlx_put_image_to_window(cub.mlx, cub.win, cub.w_texture, cub.cpos.x, cub.cpos.y);
 	mlx_loop(cub.mlx);
 	//terminate
 	free_map(cub.map, cub.m_height);
