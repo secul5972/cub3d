@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_ray.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:40:25 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/12 15:06:00 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:33:35 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	bresenham(t_cub3d_data *cub, int startX, int startY, int finishX, int finis
 				y += Yfactor;
 				f += 2 * (h - w);
 			}
-			mlx_pixel_put(cub->mlx, cub->win, x, y, color);//0x00FFFF00
+			cub->img.data_ptr[y * (int)cub->w_width + x] = color;
+			//mlx_pixel_put(cub->mlx, cub->win, x, y, color);//0x00FFFF00
 		}
 	}
 	else
@@ -56,7 +57,8 @@ void	bresenham(t_cub3d_data *cub, int startX, int startY, int finishX, int finis
 				x += Xfactor;
 				f += 2 * (w - h);
 			}
-			mlx_pixel_put(cub->mlx, cub->win, x, y, color);
+			cub->img.data_ptr[y * (int)cub->w_width + x] = color;
+			//mlx_pixel_put(cub->mlx, cub->win, x, y, color);
 		}
 	}
 }
@@ -83,4 +85,5 @@ void	get_ray(t_cub3d_data *cub, int color)
         dda(cub, cub->ray);
 		x++;
 	}
+	mlx_put_image_to_window(cub->mlx, cub->win, cub->img.img_ptr, 0, 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   press.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:00:04 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/12 14:55:46 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/12 15:32:58 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	reset_black(t_cub3d_data *cub)
 		}
 		i++;
 	}
-    mlx_put_image_to_window(cub->mlx, cub->win, cub->img.img_ptr, 0, 0);
+
 
     for(int i=0;i<cub->m_height;i++)
     {
@@ -44,12 +44,13 @@ void	reset_black(t_cub3d_data *cub)
         {
             if (cub->map[i][j] == '1')
             {
-                //printf("%d %d\n", i, j);
+                printf("%d %d\n", i, j);
                 for(int a = i * cub->xrate; a < (i+1)*cub->xrate;a++)
                 {
                     for(int b = j * cub->xrate; b < (j+1)*cub->xrate;b++)
                     {
-                        mlx_pixel_put(cub->mlx, cub->win, b, a, 0xFF0000);
+						cub->img.data_ptr[a * (int)cub->w_width + b] = 0xFF00;
+                        //mlx_pixel_put(cub->mlx, cub->win, b, a, 0xFF0000);
                     }
                 }
             }
