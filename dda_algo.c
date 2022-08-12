@@ -3,17 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   dda_algo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:43:29 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/12 15:35:32 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/12 16:20:16 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void print_wall(double wall_top, double wall_bottom, int screen_x, t_cub3d_data *cub)
+{
+	int h;
+
+
+	h = (int)wall_top;
+	while (h < (int)wall_bottom)
+	{
+		cub->img.data_ptr[h * (int)cub->w_width + screen_x] = 0xFF000000;printf("??\n");
+		h++;
+	}
+}
+
 // dda
-void dda(t_cub3d_data *cub, t_vec ray)
+void dda(t_cub3d_data *cub, t_vec ray, int screen_x)
 {
 	t_vec mapPos;
 	t_vec dmapPos;
@@ -80,6 +93,17 @@ void dda(t_cub3d_data *cub, t_vec ray)
 			// bresenham(cub, start.x, start.y, end.x, end.y, 0x00FFFF00);
 			// printf("%d %f %d %d\n",side, a, (int)mapPos.y, (int)mapPos.x);
 			// printf("%f %f %f\n", len.x, len.y, scale);
+			
+			double wall_len;
+			wall_len = cub->w_height / 50;
+
+			double wall_top;
+			double wall_bottom;
+
+			wall_bottom = cub->w_height / 2 + wall_len / 2;
+			wall_top = cub->w_height / 2 - wall_len / 2;
+			print_wall(wall_top, wall_bottom, screen_x, cub);
+
 			break;
 		}
 	}

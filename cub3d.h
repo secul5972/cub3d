@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/12 14:25:06 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/12 16:06:29 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void    fix_map_find_pos(t_cub3d_data *cub);
 int     get_lst(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
 int     lst_to_map(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
 void	get_ray(t_cub3d_data *cub, int color);
-void    dda(t_cub3d_data *cub, t_vec ray);
+void    dda(t_cub3d_data *cub, t_vec ray, int screen_x);
 double  vec_scale(t_vec v);
 int		press_key(int keycode, t_cub3d_data *cub);
 void	bresenham(t_cub3d_data *cub, int startX, int startY, int finishX, int finishY, int color);

@@ -6,7 +6,7 @@
 /*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:40:25 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/12 15:33:35 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/12 16:13:08 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	get_ray(t_cub3d_data *cub, int color)
 		//Before DDA
 
 		//DDA
-        dda(cub, cub->ray);
+		dda(cub, cub->ray, x);
 		x++;
 	}
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->img.img_ptr, 0, 0);
