@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   press.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:00:04 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/12 14:34:31 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/12 14:49:59 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,22 +90,22 @@ int press_key(int keycode, t_cub3d_data *cub)
 
 	if (keycode == KEY_W)
 	{
-		if (cub->map[(int)cub->cpos.y - 1][(int)cub->cpos.x] == '0')
+		if (cub->map[(int)(cub->cpos.y + -1 * cub->frameTime)][(int)cub->cpos.x] == '0')
 			move(cub, 'y', -1);
 	}
 	else if (keycode == KEY_A)
 	{
-		if (cub->map[(int)cub->cpos.y][(int)cub->cpos.x - 1] == '0')
+		if (cub->map[(int)(cub->cpos.y)][(int)(cub->cpos.x - 1 * cub->frameTime)] == '0')
 			move(cub, 'x', -1);
 	}
 	else if (keycode == KEY_S)
 	{
-		if (cub->map[(int)cub->cpos.y + 1][(int)cub->cpos.x] == '0')
+		if (cub->map[(int)(cub->cpos.y + 1 * cub->frameTime)][(int)cub->cpos.x] == '0')
 			move(cub, 'y', 1);
 	}
 	else if (keycode == KEY_D)
 	{
-		if (cub->map[(int)cub->cpos.y][(int)cub->cpos.x + 1] == '0')
+		if (cub->map[(int)(cub->cpos.y)][(int)(cub->cpos.x + 1 * cub->frameTime)] == '0')
 			move(cub, 'x', 1);
 	}
 	else if (keycode == KEY_LEFT)
