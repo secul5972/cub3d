@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/11 17:44:34 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/12 12:30:10 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ typedef struct s_cub3d_data
 	double	xrate;
 	double	yrate;
 
-	double rotate;
+	double	rotate_angle;
+	double	frameTime;
 }	t_cub3d_data;
 
 int		read_map(t_cub3d_data *cub);
