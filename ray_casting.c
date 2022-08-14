@@ -63,7 +63,7 @@ void	bresenham(t_cub3d_data *cub, int startX, int startY, int finishX, int finis
 	}
 }
 
-void	get_ray(t_cub3d_data *cub, int color)
+void	ray_casting(t_cub3d_data *cub, int color)
 {
 	int		x;
 	double	multiple;

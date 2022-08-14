@@ -13,7 +13,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "mlx/mlx.h"
+# include "minilibx-linux/mlx.h" //# include "mlx/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -27,14 +27,14 @@
 /*# define LEAVEWINDOWMASK	1L << 5
 # define KEYPRESS_X_MASK	1L << 0*/
 
-# define KEY_ESC	53
-# define KEY_W		13
-# define KEY_A		0
-# define KEY_S		1
-# define KEY_D		2
+# define KEY_ESC	65307 //mac: 53, linux: 65307
+# define KEY_W		119 //mac: 13, linux: 119
+# define KEY_A		97 //mac: 0, linux: 97
+# define KEY_S		115 //mac: 1, linux: 115
+# define KEY_D		100 //mac: 2, linux: 100
 
-# define KEY_LEFT	123
-# define KEY_RIGHT	124
+# define KEY_LEFT	65361 //mac: 123, linux: 65361
+# define KEY_RIGHT	65363 //mac: 124, linux: 65363
 
 typedef struct s_line_lst
 {
@@ -119,9 +119,9 @@ int		parsing(t_cub3d_data *cub);
 void    fix_map_find_pos(t_cub3d_data *cub);
 int     get_lst(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
 int     lst_to_map(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
-void	get_ray(t_cub3d_data *cub, int color);
-void    dda(t_cub3d_data *cub, t_vec ray, int screen_x);
-double  vec_scale(t_vec v);
+void	ray_casting(t_cub3d_data *cub, int color);
+void    dda(t_cub3d_data *cub, t_vec ray, int screenX);
+double	vec_scale(t_vec v);
 int		press_key(int keycode, t_cub3d_data *cub);
 void	bresenham(t_cub3d_data *cub, int startX, int startY, int finishX, int finishY, int color);
 

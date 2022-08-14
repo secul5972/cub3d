@@ -12,21 +12,27 @@
 
 #include "cub3d.h"
 
-void print_wall(double wall_top, double wall_bottom, int screen_x, t_cub3d_data *cub)
+void	print_wall(t_cub3d_data *cub, int screenX, int perpWallDist)
 {
+	double wallLen;
+	double wallTop;
+	double wallBottom;
 	int h;
 
-
-	h = (int)wall_top;
-	while (h < (int)wall_bottom)
+	//perpWallDist 길이에 따라 화면에 그려질 벽 길이 결정
+	wallLen = cub->w_height / perpWallDist;
+	wallBottom = cub->w_height / 2 + wallLen / 2;
+	wallTop = cub->w_height / 2 - wallLen / 2;
+	h = (int)wallTop;
+	while (h <= (int)wallBottom)
 	{
-		cub->img.data_ptr[h * (int)cub->w_width + screen_x] = 0xFF000000;printf("??\n");
+		cub->img.data_ptr[h * (int)cub->w_width + screenX] = 0xFFFF0000;
 		h++;
 	}
 }
 
 // dda
-void dda(t_cub3d_data *cub, t_vec ray, int screen_x)
+void dda(t_cub3d_data *cub, t_vec ray, int screenX)
 {
 	t_vec mapPos;
 	t_vec dmapPos;
@@ -94,15 +100,7 @@ void dda(t_cub3d_data *cub, t_vec ray, int screen_x)
 			// printf("%d %f %d %d\n",side, a, (int)mapPos.y, (int)mapPos.x);
 			// printf("%f %f %f\n", len.x, len.y, scale);
 			
-			double wall_len;
-			wall_len = cub->w_height / 50;
-
-			double wall_top;
-			double wall_bottom;
-
-			wall_bottom = cub->w_height / 2 + wall_len / 2;
-			wall_top = cub->w_height / 2 - wall_len / 2;
-			print_wall(wall_top, wall_bottom, screen_x, cub);
+			print_wall(cub, screenX, 10); //세번째 인자에 perpWallDist가 들어감.
 
 			break;
 		}

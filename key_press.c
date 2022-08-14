@@ -19,24 +19,35 @@ int press_esc(t_cub3d_data *cub)
 	return (0);
 }
 
-void	reset_black(t_cub3d_data *cub)
+void	reset_background(t_cub3d_data *cub)
 {
 	int	i;
 	int	j;
 
+	// print ceiling
 	i = 0;
-	while (i < (int)cub->w_height)
+	while (i < (int)cub->w_height / 2)
 	{
 		j = 0;
 		while (j < (int)cub->w_width)
 		{
-			cub->img.data_ptr[i * (int)cub->w_width + j] = 0;
-			//mlx_pixel_put(cub->mlx, cub->win, j, i, 0x00000000);
+			cub->img.data_ptr[i * (int)cub->w_width + j] = 0x87CEFA;
 			j++;
 		}
 		i++;
 	}
 
+	// print floor
+	while (i < (int)cub->w_height)
+	{
+		j = 0;
+		while (j < (int)cub->w_width)
+		{
+			cub->img.data_ptr[i * (int)cub->w_width + j] = 0x778899;
+			j++;
+		}
+		i++;
+	}
 
     // for(int i=0;i<cub->m_height;i++)
     // {
@@ -67,28 +78,27 @@ void rotate(t_cub3d_data *cub, double direction)
 	angle = cub->rotate_angle * cub->frameTime;
 	if (direction < 0)
 		angle = -angle;
-	reset_black(cub);
+	reset_background(cub);
 	cub->cdir.x = cub->cdir.x * cos(angle) - cub->cdir.y * sin(angle);
 	cub->cdir.y = tmp * sin(angle) + cub->cdir.y * cos(angle);
 	tmp = cub->plane.x;
 	cub->plane.x = cub->plane.x * cos(angle) - cub->plane.y * sin(angle);
 	cub->plane.y = tmp * sin(angle) + cub->plane.y * cos(angle);
-	get_ray(cub, 0x00FFFF00);
+	ray_casting(cub, 0x00FFFF00);
 }
 
 void	move(t_cub3d_data *cub, char target, double direction)
 {
-	reset_black(cub);
+	reset_background(cub);
 	if (target == 'x')
 		cub->cpos.x += direction * cub->frameTime;
 	else
 		cub->cpos.y += direction * cub->frameTime;
-	get_ray(cub, 0x00FFFF00);
+	ray_casting(cub, 0x00FFFF00);
 }
 
 int press_key(int keycode, t_cub3d_data *cub)
 {
-
 	if (keycode == KEY_W)
 	{
 		if (cub->map[(int)(cub->cpos.y + -1 * cub->frameTime)][(int)cub->cpos.x] == '0')

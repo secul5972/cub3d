@@ -1,40 +1,33 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/08/11 15:04:40 by seungcoh          #+#    #+#              #
-#    Updated: 2022/08/12 12:54:05 by seungcoh         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-CC = gcc -g
-RM = rm -f
-#CFLAGS = -Wall -Wextra -Werror
-MLX = -Lmlx -lmlx -framework OpenGL -framework Appkit -lm 
-
-NAME = cub3d
-SRCS = main.c parsing.c read_map.c read_map2.c utils.c utils2.c\
+NAME= cub3d
+SRC = main.c parsing.c read_map.c read_map2.c utils.c utils2.c\
 	ft_function/ft_split.c ft_function/ft_utils.c\
-	ft_function/ft_atoi.c find_pos.c get_ray.c dda_algo.c press.c\
+	ft_function/ft_atoi.c find_pos.c ray_casting.c dda_algo.c key_press.c
+OBJ = $(SRC:%.c=%.o)
 
-	   
-OBJS = $(SRCS:.c=.o)
+MLX_DIR = ./minilibx-linux
+LFLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lbsd
 
-all: 		$(NAME)
+RM = rm -f
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
 
-$(NAME): 	$(OBJS)
-			make -C mlx
-			$(CC) $(CFLAGS) $(MLX) -o $(NAME) $(OBJS) -O3
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CC) -o $(NAME) $(OBJ) $(LFLAGS)
+
+%.o: %.c
+	$(CC) -I$(MLX_DIR) -c -o $@ $<
+
 clean:
-			$(RM) $(OBJS)
+	$(RM) $(OBJ)
 
-fclean: 	clean
-			make clean -C mlx
-			$(RM) $(NAME)
+fclean: clean
+	$(RM) $(NAME)
 
-re:			fclean all
+re: fclean all
 
-.PHONY:		all clean fclean re
+bonus: $(OBJ_BONUS)
+	$(CC) $(CFLAGS) -o $(NAME) $^
+
+.PHONY: all clean fclean re bonus

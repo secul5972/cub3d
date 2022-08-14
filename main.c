@@ -102,15 +102,17 @@ int	main(int argc, char **argv)
     //     }
     //     write(1, "f\n", 2);
     // }
-	
+
+	reset_background(&cub);
+
 	// plane
 	make_vec(&cub.plane, cub.cdir.y, -cub.cdir.x);
+
 	// ray
-    
-	get_ray(&cub, 0x00FFFF00);
+	ray_casting(&cub, 0x00FFFF00);
+
 	mlx_hook(cub.win, KEYPRESS_X_EVENT, 1L<<0, &press_key, &cub);
 	mlx_hook(cub.win, KEYEXIT_X_EVENT, 1L<<5, &press_x_button, &cub);
-	//mlx_loop_hook(cub.mlx, &get_ray, &cub);
 	mlx_loop(cub.mlx);
 	//terminate
 	free_map(cub.map, cub.m_height);
