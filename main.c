@@ -27,12 +27,8 @@ int	cub3d_init(t_cub3d_data *cub, t_img *img)
 	cub->s_texture = 0;
 	cub->w_texture = 0;
 	cub->e_texture = 0;
-	cub->f_rgb[0] = -1;
-	cub->f_rgb[1] = -1;
-	cub->f_rgb[2] = -1;
-	cub->c_rgb[0] = -1;
-	cub->c_rgb[1] = -1;
-	cub->c_rgb[2] = -1;
+	cub->floor_color = -1;
+	cub->ceiling_color = -1;
 	cub->dx[0] = 1;
 	cub->dx[1] = 0;
 	cub->dx[2] = -1;
@@ -109,7 +105,7 @@ int	main(int argc, char **argv)
 	make_vec(&cub.plane, cub.cdir.y, -cub.cdir.x);
 
 	// ray
-	ray_casting(&cub, 0x00FFFF00);
+	ray_casting(&cub);
 
 	mlx_hook(cub.win, KEYPRESS_X_EVENT, 1L<<0, &press_key, &cub);
 	mlx_hook(cub.win, KEYEXIT_X_EVENT, 1L<<5, &press_x_button, &cub);

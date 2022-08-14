@@ -67,14 +67,14 @@ typedef struct s_cub3d_data
 	float	w_width;
 	float	w_height;
 	
-	// texture pointerS
+	// texture pointers
 	void	*n_texture;
 	void	*s_texture;
 	void	*w_texture;
 	void	*e_texture;
 	// rgb colors
-	int		f_rgb[3];
-	int		c_rgb[3];
+	int		floor_color;
+	int		ceiling_color;
 
 	//file
 	int		fd;
@@ -115,11 +115,12 @@ int		free_list(t_line_lst *head);
 int 	free_map(char **map, int height);
 void	make_vec(t_vec *v, double x, double y);
 int		parsing(t_cub3d_data *cub);
+int		get_rgb(char **elem, t_cub3d_data *cub);
 
 void    fix_map_find_pos(t_cub3d_data *cub);
 int     get_lst(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
 int     lst_to_map(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
-void	ray_casting(t_cub3d_data *cub, int color);
+void	ray_casting(t_cub3d_data *cub);
 void    dda(t_cub3d_data *cub, t_vec ray, int screenX);
 double	vec_scale(t_vec v);
 int		press_key(int keycode, t_cub3d_data *cub);

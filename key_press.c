@@ -24,26 +24,23 @@ void	reset_background(t_cub3d_data *cub)
 	int	i;
 	int	j;
 
-	// print ceiling
 	i = 0;
 	while (i < (int)cub->w_height / 2)
 	{
 		j = 0;
 		while (j < (int)cub->w_width)
 		{
-			cub->img.data_ptr[i * (int)cub->w_width + j] = 0x87CEFA;
+			cub->img.data_ptr[i * (int)cub->w_width + j] = cub->ceiling_color;
 			j++;
 		}
 		i++;
 	}
-
-	// print floor
 	while (i < (int)cub->w_height)
 	{
 		j = 0;
 		while (j < (int)cub->w_width)
 		{
-			cub->img.data_ptr[i * (int)cub->w_width + j] = 0x778899;
+			cub->img.data_ptr[i * (int)cub->w_width + j] = cub->floor_color;
 			j++;
 		}
 		i++;
@@ -84,7 +81,7 @@ void rotate(t_cub3d_data *cub, double direction)
 	tmp = cub->plane.x;
 	cub->plane.x = cub->plane.x * cos(angle) - cub->plane.y * sin(angle);
 	cub->plane.y = tmp * sin(angle) + cub->plane.y * cos(angle);
-	ray_casting(cub, 0x00FFFF00);
+	ray_casting(cub);
 }
 
 void	move(t_cub3d_data *cub, char target, double direction)
@@ -94,7 +91,7 @@ void	move(t_cub3d_data *cub, char target, double direction)
 		cub->cpos.x += direction * cub->frameTime;
 	else
 		cub->cpos.y += direction * cub->frameTime;
-	ray_casting(cub, 0x00FFFF00);
+	ray_casting(cub);
 }
 
 int press_key(int keycode, t_cub3d_data *cub)

@@ -26,7 +26,7 @@ void	print_wall(t_cub3d_data *cub, int screenX, int perpWallDist)
 	h = (int)wallTop;
 	while (h <= (int)wallBottom)
 	{
-		cub->img.data_ptr[h * (int)cub->w_width + screenX] = 0xFFFF0000;
+		cub->img.data_ptr[h * (int)cub->w_width + screenX] = 0xDC143C;
 		h++;
 	}
 }
