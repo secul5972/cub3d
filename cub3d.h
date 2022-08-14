@@ -124,5 +124,6 @@ void    dda(t_cub3d_data *cub, t_vec ray, int screenX);
 double	vec_scale(t_vec v);
 int		press_key(int keycode, t_cub3d_data *cub);
 void	bresenham(t_cub3d_data *cub, int startX, int startY, int finishX, int finishY, int color);
+void	reset_background(t_cub3d_data *cub);
 
 #endif
