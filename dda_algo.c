@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   dda_algo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:43:29 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/12 16:20:16 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/15 20:54:07 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	print_wall(t_cub3d_data *cub, int screenX, int perpWallDist)
+void	print_wall(t_cub3d_data *cub, int screenX, double cposToWallDist)
 {
 	double wallLen;
 	double wallTop;
@@ -20,10 +20,11 @@ void	print_wall(t_cub3d_data *cub, int screenX, int perpWallDist)
 	int h;
 
 	//perpWallDist 길이에 따라 화면에 그려질 벽 길이 결정
-	wallLen = cub->w_height / perpWallDist;
+	wallLen = cub->w_height / cposToWallDist;
 	wallBottom = cub->w_height / 2 + wallLen / 2;
+	wallBottom = wallBottom >= cub->w_height ? cub->w_height - 1 : wallBottom;
 	wallTop = cub->w_height / 2 - wallLen / 2;
-	h = (int)wallTop;
+	h = wallTop < 0 ? 0 : (int)wallTop;
 	while (h <= (int)wallBottom)
 	{
 		cub->img.data_ptr[h * (int)cub->w_width + screenX] = 0xDC143C;
@@ -40,6 +41,8 @@ void dda(t_cub3d_data *cub, t_vec ray, int screenX)
 	t_vec dlen;
 	int side;
 	double scale = vec_scale(ray);
+
+	double cposToWallDist;
 
 	mapPos.x = (int)cub->cpos.x;
 	mapPos.y = (int)cub->cpos.y;
@@ -99,8 +102,15 @@ void dda(t_cub3d_data *cub, t_vec ray, int screenX)
 			// bresenham(cub, start.x, start.y, end.x, end.y, 0x00FFFF00);
 			// printf("%d %f %d %d\n",side, a, (int)mapPos.y, (int)mapPos.x);
 			// printf("%f %f %f\n", len.x, len.y, scale);
-			
-			print_wall(cub, screenX, 10); //세번째 인자에 perpWallDist가 들어감.
+			// if (side)
+			// 	perpWallDist = len.x  * abs(ray.y) / scale;
+			// else
+			// 	perpWallDist = len.y * abs(ray.y) / scale;
+			if (side == 1)
+				cposToWallDist = (mapPos.x - cub->cpos.x + (1 - dmapPos.x) / 2) / ray.x;
+      		else
+				cposToWallDist = (mapPos.y - cub->cpos.y + (1 - dmapPos.y) / 2) / ray.y;
+			print_wall(cub, screenX, cposToWallDist);
 
 			break;
 		}

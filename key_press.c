@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   press.c                                            :+:      :+:    :+:   */
+/*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:00:04 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/12 15:35:49 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/15 19:54:25 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,24 @@ void	reset_background(t_cub3d_data *cub)
 		i++;
 	}
 
-    // for(int i=0;i<cub->m_height;i++)
-    // {
-    //     for(int j=0;j<cub->m_width;j++)
-    //     {
-    //         if (cub->map[i][j] == '1')
-    //         {
-    //             printf("%d %d\n", i, j);
-    //             for(int a = i * cub->xrate; a < (i+1)*cub->xrate;a++)
-    //             {
-    //                 for(int b = j * cub->xrate; b < (j+1)*cub->xrate;b++)
-    //                 {
+	// for (int i = 0; i < cub->m_height; i++)
+	// {
+	// 	for (int j = 0; j < cub->m_width; j++)
+	// 	{
+	// 		if (cub->map[i][j] == '1')
+	// 		{
+	// 			printf("%d %d\n", i, j);
+	// 			for (int a = i * cub->xrate; a < (i + 1) * cub->xrate; a++)
+	// 			{
+	// 				for (int b = j * cub->xrate; b < (j + 1) * cub->xrate; b++)
+	// 				{
 	// 					cub->img.data_ptr[a * (int)cub->w_width + b] = 0xFF00;
-    //                     //mlx_pixel_put(cub->mlx, cub->win, b, a, 0xFF0000);
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+	// 					// mlx_pixel_put(cub->mlx, cub->win, b, a, 0xFF0000);
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
 }
 
 void rotate(t_cub3d_data *cub, double direction)

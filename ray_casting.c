@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_ray.c                                          :+:      :+:    :+:   */
+/*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:40:25 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/12 16:13:08 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/15 20:06:27 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ray_casting(t_cub3d_data *cub)
 	double	multiple;
 
 	//plane vector
-	//make_vec(&cub->plane, cub->cdir.y, -cub->cdir.x);
+	make_vec(&cub->plane, cub->cdir.y, -cub->cdir.x);
 	x = 0;
 	while (x < cub->w_width)
 	{
