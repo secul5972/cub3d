@@ -84,42 +84,40 @@ void rotate(t_cub3d_data *cub, double direction)
 	ray_casting(cub);
 }
 
-void	move(t_cub3d_data *cub, char target, double direction)
+void	move_ud(t_cub3d_data *cub, double direction)
 {
 	reset_background(cub);
-	if (target == 'x')
-		cub->cpos.x += direction * cub->frameTime;
-	else
-		cub->cpos.y += direction * cub->frameTime;
+	if (cub->map[(int)(cub->cpos.y + direction * cub->cdir.y * cub->frameTime)][(int)cub->cpos.x] == '0')
+		cub->cpos.y += direction * cub->cdir.y * cub->frameTime;
+	if (cub->map[(int)cub->cpos.y][(int)(cub->cpos.x + direction * cub->cdir.x * cub->frameTime)] == '0')
+		cub->cpos.x += direction * cub->cdir.x * cub->frameTime;
+	ray_casting(cub);
+}
+
+void	move_lr(t_cub3d_data *cub, double direction)
+{
+	reset_background(cub);
+	if (cub->map[(int)(cub->cpos.y + direction * cub->plane.y * cub->frameTime)][(int)cub->cpos.x] == '0')
+		cub->cpos.y += direction * cub->plane.y * cub->frameTime;
+	if (cub->map[(int)cub->cpos.y][(int)(cub->cpos.x + direction * cub->plane.x * cub->frameTime)] == '0')
+		cub->cpos.x += direction * cub->plane.x * cub->frameTime;
 	ray_casting(cub);
 }
 
 int press_key(int keycode, t_cub3d_data *cub)
 {
 	if (keycode == KEY_W)
-	{
-		if (cub->map[(int)(cub->cpos.y + -1 * cub->frameTime)][(int)cub->cpos.x] == '0')
-			move(cub, 'y', -1);
-	}
-	else if (keycode == KEY_A)
-	{
-		if (cub->map[(int)(cub->cpos.y)][(int)(cub->cpos.x - 1 * cub->frameTime)] == '0')
-			move(cub, 'x', -1);
-	}
+		move_ud(cub, 1);
 	else if (keycode == KEY_S)
-	{
-		if (cub->map[(int)(cub->cpos.y + 1 * cub->frameTime)][(int)cub->cpos.x] == '0')
-			move(cub, 'y', 1);
-	}
+		move_ud(cub, -1);
+	else if (keycode == KEY_A)
+		move_lr(cub, -1);
 	else if (keycode == KEY_D)
-	{
-		if (cub->map[(int)(cub->cpos.y)][(int)(cub->cpos.x + 1 * cub->frameTime)] == '0')
-			move(cub, 'x', 1);
-	}
+		move_lr(cub, 1);
 	else if (keycode == KEY_LEFT)
-		rotate(cub, -1);
-	else if (keycode == KEY_RIGHT)
 		rotate(cub, 1);
+	else if (keycode == KEY_RIGHT)
+		rotate(cub, -1);
 	else if (keycode == KEY_ESC)
 		press_esc(cub);
 	return (0);
