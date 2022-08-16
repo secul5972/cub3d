@@ -36,7 +36,7 @@
 # define KEY_LEFT	65361 //mac: 123, linux: 65361
 # define KEY_RIGHT	65363 //mac: 124, linux: 65363
 
-# define EPS 0.0001
+# define BORDER 0.0001
 
 typedef struct s_line_lst
 {

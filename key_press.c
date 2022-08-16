@@ -31,21 +31,27 @@ void	rotate(t_cub3d_data *cub, double direction)
 
 void	move_y(t_cub3d_data *cub, double move_to)
 {
-	int	y;
+	double	wall_with_border;
 
 	if (move_to < 0)
 	{
-		y = cub->cpos.y + move_to;
-		if (y + EPS > cub->cpos.y + move_to)
-			cub->cpos.y = y + EPS;
+		if (cub->map[(int)cub->cpos.y - 1][(int)cub->cpos.x] == '1')
+		{
+			wall_with_border = (int)cub->cpos.y + BORDER;
+			if (wall_with_border < cub->cpos.y + move_to)
+				cub->cpos.y = cub->cpos.y + move_to;
+		}
 		else
 			cub->cpos.y = cub->cpos.y + move_to;
 	}
 	else
 	{
-		y = cub->cpos.y + move_to + 1;
-		if (y - EPS < cub->cpos.y + move_to)
-			cub->cpos.y = y - EPS;
+		if (cub->map[(int)cub->cpos.y + 1][(int)cub->cpos.x] == '1')
+		{
+			wall_with_border = (int)cub->cpos.y + 1 - BORDER;
+			if (wall_with_border > cub->cpos.y + move_to)
+				cub->cpos.y = cub->cpos.y + move_to;
+		}
 		else
 			cub->cpos.y = cub->cpos.y + move_to;
 	}
@@ -53,21 +59,27 @@ void	move_y(t_cub3d_data *cub, double move_to)
 
 void	move_x(t_cub3d_data *cub, double move_to)
 {
-	int	x;
+	double	wall_with_border;
 
 	if (move_to < 0)
 	{
-		x = cub->cpos.x + move_to;
-		if (x + EPS > cub->cpos.x + move_to)
-			cub->cpos.x = x + EPS;
+		if (cub->map[(int)cub->cpos.y][(int)cub->cpos.x - 1] == '1')
+		{
+			wall_with_border = (int)cub->cpos.x + BORDER;
+			if (wall_with_border < cub->cpos.x + move_to)
+				cub->cpos.x = cub->cpos.x + move_to;
+		}
 		else
 			cub->cpos.x = cub->cpos.x + move_to;
 	}
 	else
-	{	
-		x = cub->cpos.x + move_to + 1;
-		if (x - EPS < cub->cpos.x + move_to)
-			cub->cpos.x = x - EPS;
+	{
+		if (cub->map[(int)cub->cpos.y][(int)cub->cpos.x + 1] == '1')
+		{
+			wall_with_border = (int)cub->cpos.x + 1 - BORDER;
+			if (wall_with_border > cub->cpos.x + move_to)
+				cub->cpos.x = cub->cpos.x + move_to;
+		}
 		else
 			cub->cpos.x = cub->cpos.x + move_to;
 	}
