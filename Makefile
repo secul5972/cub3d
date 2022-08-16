@@ -1,6 +1,6 @@
 NAME= cub3d
 SRC = main.c parsing.c parsing2.c read_map.c read_map2.c\
-	utils.c utils2.c ray_casting.c dda_algo.c key_press.c\
+	utils.c utils2.c ray_casting.c dda.c key_press.c\
 	ft_function/ft_split.c ft_function/ft_utils.c\
 	ft_function/ft_atoi.c find_pos.c
 OBJ = $(SRC:%.c=%.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/12 14:25:20 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/16 10:55:21 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ int	cub3d_init(t_cub3d_data *cub, t_img *img)
 	cub->frameTime = 0.1;
 	cub->win = mlx_new_window(cub->mlx, cub->w_width, cub->w_height, "cub3d");
 	img->img_ptr = mlx_new_image(cub->mlx, cub->w_width, cub->w_height);
-	img->data_ptr = (int *)mlx_get_data_addr(img->img_ptr, &img->bits_per_pixel, \
-	&img->line_length, &img->endian);
+	img->data_ptr = (int *)mlx_get_data_addr(img->img_ptr, \
+	&img->bits_per_pixel, &img->line_length, &img->endian);
 	if (cub->mlx == 0 || cub->win == 0 || img->img_ptr == 0 || \
 	img->data_ptr == 0)
 		return (1);
 	return (0);
 }
 
-void free_all(t_cub3d_data *cub)
+void	free_all(t_cub3d_data *cub)
 {
 	mlx_destroy_image(cub->mlx, cub->n_texture);
 	mlx_destroy_image(cub->mlx, cub->s_texture);
@@ -69,7 +69,7 @@ int	file_open(t_cub3d_data *cub, char *cub_file)
 	return (0);
 }
 
-int press_x_button(t_cub3d_data *cub)
+int	press_x_button(t_cub3d_data *cub)
 {
 	free_all(cub);
 	exit(0);
@@ -90,27 +90,11 @@ int	main(int argc, char **argv)
 		return (p_error("Parsing Error\n", 15));
 	if (read_map(&cub))
 		return (p_error("Read Map Error\n", 16));
-    // for (int i = 0; i < cub.m_height; i++)
-    // {
-    //     for (int j = 0; j < cub.m_width; j++)
-    //     {
-    //         write(1, &cub.map[i][j], 1);
-    //     }
-    //     write(1, "f\n", 2);
-    // }
-
 	reset_background(&cub);
-
-	// plane
-	make_vec(&cub.plane, cub.cdir.y, -cub.cdir.x);
-
-	// ray
 	ray_casting(&cub);
-
-	mlx_hook(cub.win, KEYPRESS_X_EVENT, 1L<<0, &press_key, &cub);
-	mlx_hook(cub.win, KEYEXIT_X_EVENT, 1L<<5, &press_x_button, &cub);
+	mlx_hook(cub.win, KEYPRESS_X_EVENT, 1L << 0, &press_key, &cub);
+	mlx_hook(cub.win, KEYEXIT_X_EVENT, 1L << 5, &press_x_button, &cub);
 	mlx_loop(cub.mlx);
-	//terminate
 	free_map(cub.map, cub.m_height);
 	free_all(&cub);
 	return (0);

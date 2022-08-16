@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:07:23 by secul5972         #+#    #+#             */
-/*   Updated: 2022/08/12 12:57:47 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/16 10:57:25 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,6 @@ int	read_map(t_cub3d_data *cub)
 		free_map(cub->map, cub->m_height);
 		return (1);
 	}
-    cub->xrate = (double)(cub->w_width) / cub->m_width;
-    cub->yrate = (double)(cub->w_height) / cub->m_height;
-    cub->xrate = cub->xrate > cub->yrate ? (int)cub->yrate : (int)cub->xrate;
-    cub->yrate = cub->xrate;
 	fix_map_find_pos(cub);
 	return (0);
 }

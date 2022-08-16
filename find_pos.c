@@ -3,54 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   find_pos.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:22:00 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/12 14:54:34 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/16 11:58:56 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void fix_map_find_pos(t_cub3d_data *cub)
+void	make_vec_data(t_cub3d_data *cub, t_veci idx)
 {
-	int i;
-	int j;
+	cub->map[idx.x][idx.y] = '0';
+	make_vec(&cub->cpos, idx.y, idx.x);
+	make_vec(&cub->plane, cub->cdir.y, -cub->cdir.x);
+}
 
-	i = 0;
-	while (i < cub->m_height)
+void	fix_map_find_pos(t_cub3d_data *cub)
+{
+	t_veci	idx;
+
+	idx.x = -1;
+	while (idx.x++ < cub->m_height)
 	{
-		j = 0;
-		while (j < cub->m_width)
+		idx.y = -1;
+		while (idx.y++ < cub->m_width)
 		{
-			if (cub->map[i][j] != '1' && cub->map[i][j] != '0' && cub->map[i][j] != ' ')
-				make_vec(&cub->cpos, j, i);
-			if (cub->map[i][j] == 'N')
-			{
+			if (cub->map[idx.x][idx.y] == 'N')
 				make_vec(&cub->cdir, 0, -1);
-				cub->map[i][j] = '0';
-				continue;
-			}
-			if (cub->map[i][j] == 'S')
-			{
+			if (cub->map[idx.x][idx.y] == 'S')
 				make_vec(&cub->cdir, 0, 1);
-				cub->map[i][j] = '0';
-				continue;
-			}
-			if (cub->map[i][j] == 'W')
-			{
+			if (cub->map[idx.x][idx.y] == 'W')
 				make_vec(&cub->cdir, -1, 0);
-				cub->map[i][j] = '0';
-				continue;
-			}
-			if (cub->map[i][j] == 'E')
-			{
+			if (cub->map[idx.x][idx.y] == 'E')
 				make_vec(&cub->cdir, 1, 0);
-				cub->map[i][j] = '0';
-				continue;
+			if (cub->map[idx.x][idx.y] == 'N' || cub->map[idx.x][idx.y] == 'S' \
+			|| cub->map[idx.x][idx.y] == 'W' || cub->map[idx.x][idx.y] == 'E')
+			{
+				make_vec_data(cub, idx);
+				return ;
 			}
-			j++;
 		}
-		i++;
 	}
 }

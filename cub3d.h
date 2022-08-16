@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/12 16:06:29 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/16 11:51:27 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,26 @@ typedef struct s_img
 	int		endian;
 }	t_img;
 
-typedef struct s_vec
+typedef struct s_vecd
 {
 	double	x;
 	double	y;
-}	t_vec;
+}	t_vecd;
+
+typedef struct s_veci
+{
+	int	x;
+	int	y;
+}	t_veci;
+
+typedef struct s_dda_data
+{
+	t_veci	mapPos;
+	t_veci	dmapPos;
+	t_vecd	len;
+	t_vecd	dlen;
+	int		side;
+}	t_dda_data;
 
 typedef struct s_cub3d_data
 {
@@ -86,10 +101,10 @@ typedef struct s_cub3d_data
 	int		m_height;
 
 	//vec
-	t_vec	cpos;
-	t_vec	cdir;
-	t_vec	plane;
-	t_vec	ray;
+	t_vecd	cpos;
+	t_vecd	cdir;
+	t_vecd	plane;
+	t_vecd	ray;
 
 	//dx
 	int		dx[4];
@@ -113,16 +128,16 @@ int		free_and_return(char **strs, int ret);
 int		read_line(int fd, char **line);
 int		free_list(t_line_lst *head);
 int 	free_map(char **map, int height);
-void	make_vec(t_vec *v, double x, double y);
+void	make_vec(t_vecd *v, double x, double y);
 int		parsing(t_cub3d_data *cub);
 int		get_rgb(char **elem, t_cub3d_data *cub);
-
+void	free_all(t_cub3d_data *cub);
 void    fix_map_find_pos(t_cub3d_data *cub);
 int     get_lst(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
 int     lst_to_map(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
 void	ray_casting(t_cub3d_data *cub);
-void    dda(t_cub3d_data *cub, t_vec ray, int screenX);
-double	vec_scale(t_vec v);
+void    dda(t_cub3d_data *cub, t_vecd ray, int screenX, double cposToWallDist);
+double	vec_scale(t_vecd v);
 int		press_key(int keycode, t_cub3d_data *cub);
 void	bresenham(t_cub3d_data *cub, int startX, int startY, int finishX, int finishY, int color);
 void	reset_background(t_cub3d_data *cub);

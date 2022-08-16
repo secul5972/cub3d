@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:33:21 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/11 15:07:31 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/16 11:50:33 by secul5972        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	free_list(t_line_lst *head)
 	return (1);
 }
 
-int free_map(char **map, int height)
+int	free_map(char **map, int height)
 {
 	int	i;
 
@@ -76,10 +76,10 @@ int free_map(char **map, int height)
 		i++;
 	}
 	free(map);
-    return (1);
+	return (1);
 }
 
-void	make_vec(t_vec *v, double x, double y)
+void	make_vec(t_vecd *v, double x, double y)
 {
 	v->x = x;
 	v->y = y;
