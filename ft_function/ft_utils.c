@@ -12,7 +12,6 @@
 
 #include "../cub3d.h"
 
-//길이를 return하게 변경
 int	ft_strcpy(char *s1, char *s2, int start, int end)
 {
 	int	i;
@@ -44,9 +43,9 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-int ft_max(int a, int b)
+int	ft_max(int a, int b)
 {
-    if (a > b)
-        return (a);
-    return (b);
+	if (a > b)
+		return (a);
+	return (b);
 }

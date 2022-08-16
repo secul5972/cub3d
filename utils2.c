@@ -22,3 +22,19 @@ double	vec_scale(t_vecd v)
 {
 	return (sqrt(v.x * v.x + v.y * v.y));
 }
+
+void	free_all(t_cub3d_data *cub)
+{
+	mlx_destroy_image(cub->mlx, cub->n_texture);
+	mlx_destroy_image(cub->mlx, cub->s_texture);
+	mlx_destroy_image(cub->mlx, cub->w_texture);
+	mlx_destroy_image(cub->mlx, cub->e_texture);
+	mlx_destroy_window(cub->mlx, cub->win);
+	free(cub->mlx);
+}
+
+int	p_error(char *str, int len)
+{
+	write(2, str, len);
+	return (1);
+}
