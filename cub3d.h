@@ -36,6 +36,8 @@
 # define KEY_LEFT	65361 //mac: 123, linux: 65361
 # define KEY_RIGHT	65363 //mac: 124, linux: 65363
 
+# define EPS 0.0001
+
 typedef struct s_line_lst
 {
 	struct s_line_lst	*next;
@@ -46,7 +48,7 @@ typedef struct s_line_lst
 typedef struct s_img
 {
 	void	*img_ptr;
-	int     *data_ptr;
+	int		*data_ptr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
@@ -66,8 +68,8 @@ typedef struct s_veci
 
 typedef struct s_dda_data
 {
-	t_veci	mapPos;
-	t_veci	dmapPos;
+	t_veci	map_pos;
+	t_veci	dmap_pos;
 	t_vecd	len;
 	t_vecd	dlen;
 	int		side;
@@ -114,7 +116,7 @@ typedef struct s_cub3d_data
 	double	yrate;
 
 	double	rotate_angle;
-	double	frameTime;
+	double	frame_time;
 }	t_cub3d_data;
 
 int		read_map(t_cub3d_data *cub);
@@ -127,19 +129,22 @@ void	free_str(char **strs);
 int		free_and_return(char **strs, int ret);
 int		read_line(int fd, char **line);
 int		free_list(t_line_lst *head);
-int 	free_map(char **map, int height);
+int		free_map(char **map, int height);
 void	make_vec(t_vecd *v, double x, double y);
 int		parsing(t_cub3d_data *cub);
 int		get_rgb(char **elem, t_cub3d_data *cub);
 void	free_all(t_cub3d_data *cub);
-void    fix_map_find_pos(t_cub3d_data *cub);
-int     get_lst(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
-int     lst_to_map(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
+void	fix_map_find_pos(t_cub3d_data *cub);
+int		get_lst(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
+int		lst_to_map(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
 void	ray_casting(t_cub3d_data *cub);
-void    dda(t_cub3d_data *cub, t_vecd ray, int screenX, double cposToWallDist);
+void	dda(t_cub3d_data *cub, t_vecd ray, int screenX, double cposToWallDist);
 double	vec_scale(t_vecd v);
 int		press_key(int keycode, t_cub3d_data *cub);
-void	bresenham(t_cub3d_data *cub, int startX, int startY, int finishX, int finishY, int color);
+int		press_x_button(t_cub3d_data *cub);
+int		press_esc(t_cub3d_data *cub);
 void	reset_background(t_cub3d_data *cub);
+void	free_all(t_cub3d_data *cub);
+int		p_error(char *str, int len);
 
 #endif
