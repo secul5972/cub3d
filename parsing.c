@@ -6,7 +6,7 @@
 /*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:32:09 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/17 13:23:12 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/17 14:18:27 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	get_img_data(t_cub3d_data *cub, int dir, char *file)
 	int	img_height;
 
 	cub->dir_img[dir].img_ptr = mlx_xpm_file_to_image(cub->mlx, file, \
-		&img_width, &img_height);
+		&cub->dir_img[dir].t_width, &cub->dir_img[dir].t_height);
 	cub->dir_img[dir].data_ptr = \
 	(int *)mlx_get_data_addr(cub->dir_img[dir].img_ptr, \
 	&cub->dir_img[dir].bits_per_pixel, &cub->dir_img[dir].line_length, \
