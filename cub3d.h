@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 13:32:05 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/17 13:35:14 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_cub3d_data
 	t_img	img;
 	float	w_width;
 	float	w_height;
-	t_img	dir_img[4]; // n s w e
+	t_img	dir_img[4];
 	int		floor_color;
 	int		ceiling_color;
 	int		fd;
