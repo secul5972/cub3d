@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:07:23 by secul5972         #+#    #+#             */
-/*   Updated: 2022/08/17 16:21:42 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:39:10 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ int	read_map(t_cub3d_data *cub)
 	head.next = 0;
 	if (get_lst(cub, &head, &head, &cnt))
 		return (1);
+	if (cnt != 1)
+	{
+		free_list(&head);
+		return (1);
+	}
 	if (lst_to_map(cub, &head, head.next))
 		return (1);
 	free_list(&head);

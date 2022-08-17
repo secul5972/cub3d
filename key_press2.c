@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 13:37:08 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/17 16:06:26 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:30:16 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	press_x_button(t_cub3d_data *cub)
 {
 	free_all(cub);
+	system("leaks cub3d");
 	exit(0);
 	return (0);
 }
@@ -22,6 +23,7 @@ int	press_x_button(t_cub3d_data *cub)
 int	press_esc(t_cub3d_data *cub)
 {
 	free_all(cub);
+	system("leaks cub3d");
 	exit(0);
 	return (0);
 }

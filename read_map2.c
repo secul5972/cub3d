@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:58:38 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 16:26:18 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:38:52 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int	chk_char(char *line, int *cnt)
 		if (line[i] != '0' && line[i] != '1' && line[i] != 'N' && \
 		line[i] != 'S' && line[i] != 'E' && line[i] != 'W' && \
 		line[i] != ' ')
+		{
+			free(line);
 			return (1);
+		}
 		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || \
 		line[i] == 'W')
 			*cnt = *cnt + 1;
