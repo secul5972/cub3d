@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 13:26:11 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/17 14:59:33 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	cub3d_init(t_cub3d_data *cub, t_img *img)
 	cub->dy[3] = -1;
 	cub->m_width = 0;
 	cub->m_height = 0;
-	cub->rotate_angle = 5;
+	cub->rotate_angle = 3;
 	cub->frame_time = 0.1;
 	cub->win = mlx_new_window(cub->mlx, cub->w_width, cub->w_height, "cub3d");
 	img->img_ptr = mlx_new_image(cub->mlx, cub->w_width, cub->w_height);

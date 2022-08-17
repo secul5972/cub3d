@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:43:29 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 14:09:40 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:59:03 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,16 @@ void	print_wall(t_cub3d_data *cub, int screenX, double cposToWallDist\
 	int		wall_top;
 	int		wall_bottom;
 	int		h;
-    int     dir_num = 0;
+    int     dir_num;
+
+    if (side && ray.x < 0)
+        dir_num = 3;
+    else if (side && ray.x >= 0)
+        dir_num = 2;
+    else if (!side && ray.y < 0)
+        dir_num = 0;
+    else
+        dir_num = 1;
 
 	wall_len = cub->w_height / cposToWallDist;
 	wall_bottom = cub->w_height / 2 + wall_len / 2;
@@ -33,12 +42,12 @@ void	print_wall(t_cub3d_data *cub, int screenX, double cposToWallDist\
 	double texY;
 	if (side == 0) texX = cub->cpos.x + cposToWallDist * ray.x;
     else           texX = cub->cpos.y + cposToWallDist * ray.y;
-	texX = (texX - floor(texX)) * 64;
+	texX = (texX - floor(texX)) * cub->dir_img[dir_num].t_width;
 	h = wall_top;
 	while (h <= wall_bottom)
 	{
-		texY = (double)(h - wall_top) / (wall_bottom - wall_top) * 64;
-		cub->img.data_ptr[h * (int)cub->w_width + screenX] = cub->dir_img[0].data_ptr[(int)texY * 64 + (int)texX];
+		texY = (double)(h - cub->w_height / 2 + wall_len / 2) / (cub->w_height / 2 + wall_len / 2 - cub->w_height / 2 + wall_len / 2) * cub->dir_img[dir_num].t_height ;
+		cub->img.data_ptr[h * (int)cub->w_width + screenX] = cub->dir_img[dir_num].data_ptr[(int)texY * cub->dir_img[dir_num].t_width + (int)texX];
 		h++;
 	}
 }
