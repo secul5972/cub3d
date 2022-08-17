@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 16:05:54 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/17 17:27:10 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,13 @@ int	cub3d_init(t_cub3d_data *cub, t_img *img)
 	cub->dir_img[1].img_ptr = 0;
 	cub->dir_img[2].img_ptr = 0;
 	cub->dir_img[3].img_ptr = 0;
+	cub->dir_img[0].data_ptr = 0;
+	cub->dir_img[1].data_ptr = 0;
+	cub->dir_img[2].data_ptr = 0;
+	cub->dir_img[3].data_ptr = 0;
 	cub->floor_color = -1;
 	cub->ceiling_color = -1;
+	cub->map = 0;
 	cub->m_width = 0;
 	cub->m_height = 0;
 	cub->rotate_angle = 3;
@@ -50,15 +55,15 @@ int	main(int argc, char **argv)
 	t_cub3d_data	cub;
 
 	if (argc != 2)
-		return (p_error("Arguments Error\n", 17));
+		return (p_error("Arguments Error\n", 17, &cub));
 	if (cub3d_init(&cub, &cub.img))
-		return (p_error("Mlx Error\n", 11));
+		return (p_error("Mlx Error\n", 11, &cub));
 	if (file_open(&cub, argv[1]))
-		return (p_error("File Error\n", 12));
+		return (p_error("File Error\n", 12, &cub));
 	if (parsing(&cub))
-		return (p_error("Parsing Error\n", 15));
+		return (p_error("Parsing Error\n", 15, &cub));
 	if (read_map(&cub))
-		return (p_error("Read Map Error\n", 16));
+		return (p_error("Read Map Error\n", 16, &cub));
 	cub.cpos.y += 0.5;
 	cub.cpos.x += 0.5;
 	reset_background(&cub);
