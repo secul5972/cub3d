@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:33:21 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/16 11:50:33 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/17 16:04:02 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,15 @@ int	read_line(int fd, char **line)
 int	free_list(t_line_lst *head)
 {
 	t_line_lst	*curr;
+	t_line_lst	*next;
 
 	curr = head->next;
 	while (curr)
 	{
 		free(curr->line);
-		curr = curr->next;
+		next = curr->next;
+		free(curr);
+		curr = next;
 	}
 	return (1);
 }
