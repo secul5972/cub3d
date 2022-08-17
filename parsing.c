@@ -6,7 +6,7 @@
 /*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:32:09 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/11 14:39:50 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/17 13:23:12 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,17 @@ int	is_invalid_elements(char **elems)
 	return (0);
 }
 
-void	change_xpm_file_to_image(char **elem, t_cub3d_data *cub)
+void	get_img_data(t_cub3d_data *cub, int dir, char *file)
 {
 	int	img_width;
 	int	img_height;
 
-	if (ft_strcmp(elem[0], "NO") == 0)
-		cub->n_texture = mlx_xpm_file_to_image(cub->mlx, elem[1], \
+	cub->dir_img[dir].img_ptr = mlx_xpm_file_to_image(cub->mlx, file, \
 		&img_width, &img_height);
-	else if (ft_strcmp(elem[0], "SO") == 0)
-		cub->s_texture = mlx_xpm_file_to_image(cub->mlx, elem[1], \
-		&img_width, &img_height);
-	else if (ft_strcmp(elem[0], "WE") == 0)
-		cub->w_texture = mlx_xpm_file_to_image(cub->mlx, elem[1], \
-		&img_width, &img_height);
-	else if (ft_strcmp(elem[0], "EA") == 0)
-		cub->e_texture = mlx_xpm_file_to_image(cub->mlx, elem[1], \
-		&img_width, &img_height);
+	cub->dir_img[dir].data_ptr = \
+	(int *)mlx_get_data_addr(cub->dir_img[dir].img_ptr, \
+	&cub->dir_img[dir].bits_per_pixel, &cub->dir_img[dir].line_length, \
+	&cub->dir_img[dir].endian);
 }
 
 int	get_elements(char *line, t_cub3d_data *cub)
@@ -56,9 +50,14 @@ int	get_elements(char *line, t_cub3d_data *cub)
 		return (free_and_return(elem, 0));
 	if (is_invalid_elements(elem))
 		return (free_and_return(elem, 1));
-	if (ft_strcmp(elem[0], "NO") == 0 || ft_strcmp(elem[0], "SO") == 0 \
-	|| ft_strcmp(elem[0], "WE") == 0 || ft_strcmp(elem[0], "EA") == 0)
-		change_xpm_file_to_image(elem, cub);
+	if (ft_strcmp(elem[0], "NO") == 0)
+		get_img_data(cub, 0, elem[1]);
+	else if (ft_strcmp(elem[0], "SO") == 0)
+		get_img_data(cub, 1, elem[1]);
+	else if (ft_strcmp(elem[0], "WE") == 0)
+		get_img_data(cub, 2, elem[1]);
+	else if (ft_strcmp(elem[0], "EA") == 0)
+		get_img_data(cub, 3, elem[1]);
 	else if (ft_strcmp(elem[0], "F") == 0 || ft_strcmp(elem[0], "C") == 0)
 	{
 		if (get_rgb(elem, cub))
@@ -84,8 +83,10 @@ int	parsing(t_cub3d_data *cub)
 		free(line);
 		if (res)
 			return (1);
-		if (cub->n_texture && cub->s_texture \
-		&& cub->w_texture && cub->e_texture \
+		if (cub->dir_img[0].img_ptr && cub->dir_img[1].img_ptr \
+		&& cub->dir_img[2].img_ptr && cub->dir_img[3].img_ptr \
+		&& cub->dir_img[0].data_ptr && cub->dir_img[1].data_ptr \
+		&& cub->dir_img[2].data_ptr && cub->dir_img[3].data_ptr \
 		&& cub->floor_color > -1 && cub->ceiling_color > -1)
 			return (0);
 	}
