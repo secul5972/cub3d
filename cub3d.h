@@ -6,7 +6,11 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/08/17 13:18:23 by seungcoh         ###   ########.fr       */
+=======
+/*   Updated: 2022/08/17 13:25:39 by chaekim          ###   ########.fr       */
+>>>>>>> 8911b46e04f8fc71201dbdc4e42489665800ee1b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +86,7 @@ typedef struct s_cub3d_data
 	t_img	img;
 	float	w_width;
 	float	w_height;
-	void	*n_texture;
-	void	*s_texture;
-	void	*w_texture;
-	void	*e_texture;
+	t_img	dir_img[4]; // n s w e
 	int		floor_color;
 	int		ceiling_color;
 	int		fd;

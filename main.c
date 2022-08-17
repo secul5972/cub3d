@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/16 10:55:21 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/17 13:26:11 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	cub3d_init(t_cub3d_data *cub, t_img *img)
 	cub->mlx = mlx_init();
 	cub->w_width = 800;
 	cub->w_height = 800;
-	cub->n_texture = 0;
-	cub->s_texture = 0;
-	cub->w_texture = 0;
-	cub->e_texture = 0;
+	cub->dir_img[0].img_ptr = 0;
+	cub->dir_img[1].img_ptr = 0;
+	cub->dir_img[2].img_ptr = 0;
+	cub->dir_img[3].img_ptr = 0;
 	cub->floor_color = -1;
 	cub->ceiling_color = -1;
 	cub->dx[0] = 1;
