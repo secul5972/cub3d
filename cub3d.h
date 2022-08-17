@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 16:26:27 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:54:24 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,6 @@ int		press_x_button(t_cub3d_data *cub);
 int		press_esc(t_cub3d_data *cub);
 void	reset_background(t_cub3d_data *cub);
 void	free_all(t_cub3d_data *cub);
-int		p_error(char *str, int len);
+int		p_error(char *str, int len, t_cub3d_data *cub);
 
 #endif
