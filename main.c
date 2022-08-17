@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 14:59:33 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:59:05 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,6 @@ int	cub3d_init(t_cub3d_data *cub, t_img *img)
 	cub->dir_img[3].img_ptr = 0;
 	cub->floor_color = -1;
 	cub->ceiling_color = -1;
-	cub->dx[0] = 1;
-	cub->dx[1] = 0;
-	cub->dx[2] = -1;
-	cub->dx[3] = 0;
-	cub->dy[0] = 0;
-	cub->dy[1] = 1;
-	cub->dy[2] = 0;
-	cub->dy[3] = -1;
 	cub->m_width = 0;
 	cub->m_height = 0;
 	cub->rotate_angle = 3;

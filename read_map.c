@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:07:23 by secul5972         #+#    #+#             */
-/*   Updated: 2022/08/16 10:57:25 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/17 15:59:51 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ int	isclosed(t_cub3d_data *cub)
 	int	i;
 	int	j;
 
+	cub->dx[0] = 1;
+	cub->dx[1] = 0;
+	cub->dx[2] = -1;
+	cub->dx[3] = 0;
+	cub->dy[0] = 0;
+	cub->dy[1] = 1;
+	cub->dy[2] = 0;
+	cub->dy[3] = -1;
 	i = 0;
 	while (i < cub->m_height)
 	{

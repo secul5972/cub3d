@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 14:18:26 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/17 15:57:20 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,14 @@ typedef struct s_dda_data
 	t_veci		dmappos;
 	t_vecd		len;
 	t_vecd		dlen;
+	t_vecd		ray;
 	int			side;
+	int			img_num;
+	int			wd_top;
+	int			wd_bot;
+	double		wall_len;
+	int			wall_top;
+	int			wall_bot;
 }	t_dda_data;
 
 typedef struct s_cub3d_data
