@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:32:35 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/17 13:31:40 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/17 16:12:46 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void	free_all(t_cub3d_data *cub)
 int	p_error(char *str, int len)
 {
 	write(2, str, len);
+	system("leaks cub3d");
 	return (1);
 }

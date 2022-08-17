@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 15:57:20 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:26:27 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,8 @@ int		parsing(t_cub3d_data *cub);
 int		get_rgb(char **elem, t_cub3d_data *cub);
 void	free_all(t_cub3d_data *cub);
 void	fix_map_find_pos(t_cub3d_data *cub);
-int		get_lst(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
+int		get_lst(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr, \
+int *cnt);
 int		lst_to_map(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr);
 void	ray_casting(t_cub3d_data *cub);
 void	dda(t_cub3d_data *cub, t_vecd ray, int screenX, double cposToWallDist);

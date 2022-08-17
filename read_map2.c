@@ -6,13 +6,13 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:58:38 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/11 15:01:16 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:26:18 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	chk_char(char *line)
+int	chk_char(char *line, int *cnt)
 {
 	int	i;
 
@@ -23,16 +23,25 @@ int	chk_char(char *line)
 		line[i] != 'S' && line[i] != 'E' && line[i] != 'W' && \
 		line[i] != ' ')
 			return (1);
+		if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || \
+		line[i] == 'W')
+			*cnt = *cnt + 1;
+		if (*cnt > 1)
+		{
+			free(line);
+			return (1);
+		}
 		i++;
 	}
 	return (0);
 }
 
-int	get_lst(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr)
+int	get_lst(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr, int *cnt)
 {
-	int			len;
-	char		*line;
+	int		len;
+	char	*line;
 
+	*cnt = 0;
 	while (1)
 	{
 		len = read_line(cub->fd, &line);
@@ -40,7 +49,7 @@ int	get_lst(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr)
 			break ;
 		else if (len == 0)
 			continue ;
-		if (chk_char(line))
+		if (chk_char(line, cnt))
 			return (free_list(head));
 		cub->m_width = ft_max(len, cub->m_width);
 		cub->m_height++;

@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:07:23 by secul5972         #+#    #+#             */
-/*   Updated: 2022/08/17 15:59:51 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:21:42 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,10 @@ int	isclosed(t_cub3d_data *cub)
 int	read_map(t_cub3d_data *cub)
 {
 	t_line_lst	head;
-	t_line_lst	*curr;
-	char		**map;
+	int			cnt;
 
 	head.next = 0;
-	if (get_lst(cub, &head, &head))
+	if (get_lst(cub, &head, &head, &cnt))
 		return (1);
 	if (lst_to_map(cub, &head, head.next))
 		return (1);

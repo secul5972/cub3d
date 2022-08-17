@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:32:09 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/17 14:18:27 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/17 16:10:29 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ int	is_invalid_elements(char **elems)
 
 void	get_img_data(t_cub3d_data *cub, int dir, char *file)
 {
-	int	img_width;
-	int	img_height;
-
 	cub->dir_img[dir].img_ptr = mlx_xpm_file_to_image(cub->mlx, file, \
 		&cub->dir_img[dir].t_width, &cub->dir_img[dir].t_height);
 	cub->dir_img[dir].data_ptr = \
