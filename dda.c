@@ -6,17 +6,20 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:43:29 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 13:19:30 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:09:40 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	print_wall(t_cub3d_data *cub, int screenX, double cposToWallDist)
+void	print_wall(t_cub3d_data *cub, int screenX, double cposToWallDist\
+, t_vecd ray, int side)
 {
 	double	wall_len;
 	int		wall_top;
 	int		wall_bottom;
+	int		h;
+    int     dir_num = 0;
 
 	wall_len = cub->w_height / cposToWallDist;
 	wall_bottom = cub->w_height / 2 + wall_len / 2;
@@ -25,10 +28,18 @@ void	print_wall(t_cub3d_data *cub, int screenX, double cposToWallDist)
 	wall_top = cub->w_height / 2 - wall_len / 2;
 	if (wall_top < 0)
 		wall_top = 0;
-	while (wall_top <= wall_bottom)
+
+	double texX;
+	double texY;
+	if (side == 0) texX = cub->cpos.x + cposToWallDist * ray.x;
+    else           texX = cub->cpos.y + cposToWallDist * ray.y;
+	texX = (texX - floor(texX)) * 64;
+	h = wall_top;
+	while (h <= wall_bottom)
 	{
-		cub->img.data_ptr[wall_top * (int)cub->w_width + screenX] = 0xDC143C;
-		wall_top++;
+		texY = (double)(h - wall_top) / (wall_bottom - wall_top) * 64;
+		cub->img.data_ptr[h * (int)cub->w_width + screenX] = cub->dir_img[0].data_ptr[(int)texY * 64 + (int)texX];
+		h++;
 	}
 }
 
@@ -90,7 +101,7 @@ void	dda(t_cub3d_data *cub, t_vecd ray, int screenX, double wdist)
 		if (cub->map[vec.mappos.y][vec.mappos.x] == '1')
 		{
 			wdist = dist(cub, ray, vec);
-			print_wall(cub, screenX, wdist);
+			print_wall(cub, screenX, wdist, ray, vec.side);
 			break ;
 		}
 	}
