@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:58:38 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 16:38:52 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/17 17:48:11 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	lst_to_map(t_cub3d_data *cub, t_line_lst *head, t_line_lst *curr)
 		if (cub->map[i] == 0)
 		{
 			free_list(head);
-			return (free_map(cub->map, i));
+			return (1);
 		}
 		j = ft_strcpy(&(cub->map[i][0]), curr->line, 0, curr->len);
 		while (j < cub->m_width)

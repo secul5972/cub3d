@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 17:27:10 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/17 17:54:14 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	cub3d_init(t_cub3d_data *cub, t_img *img)
+void	cub3d_init(t_cub3d_data *cub)
 {
-	cub->mlx = mlx_init();
 	cub->w_width = 800;
 	cub->w_height = 800;
 	cub->dir_img[0].img_ptr = 0;
@@ -25,6 +24,14 @@ int	cub3d_init(t_cub3d_data *cub, t_img *img)
 	cub->dir_img[1].data_ptr = 0;
 	cub->dir_img[2].data_ptr = 0;
 	cub->dir_img[3].data_ptr = 0;
+	cub->dx[0] = 1;
+	cub->dx[1] = 0;
+	cub->dx[2] = -1;
+	cub->dx[3] = 0;
+	cub->dy[0] = 0;
+	cub->dy[1] = 1;
+	cub->dy[2] = 0;
+	cub->dy[3] = -1;
 	cub->floor_color = -1;
 	cub->ceiling_color = -1;
 	cub->map = 0;
@@ -32,6 +39,11 @@ int	cub3d_init(t_cub3d_data *cub, t_img *img)
 	cub->m_height = 0;
 	cub->rotate_angle = 3;
 	cub->frame_time = 0.1;
+}
+
+int	cub3d_init2(t_cub3d_data *cub, t_img *img)
+{
+	cub->mlx = mlx_init();
 	cub->win = mlx_new_window(cub->mlx, cub->w_width, cub->w_height, "cub3d");
 	img->img_ptr = mlx_new_image(cub->mlx, cub->w_width, cub->w_height);
 	img->data_ptr = (int *)mlx_get_data_addr(img->img_ptr, \
@@ -56,7 +68,8 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		return (p_error("Arguments Error\n", 17, &cub));
-	if (cub3d_init(&cub, &cub.img))
+	cub3d_init(&cub);
+	if (cub3d_init2(&cub, &cub.img))
 		return (p_error("Mlx Error\n", 11, &cub));
 	if (file_open(&cub, argv[1]))
 		return (p_error("File Error\n", 12, &cub));
@@ -71,7 +84,6 @@ int	main(int argc, char **argv)
 	mlx_hook(cub.win, KEYPRESS_X_EVENT, 1L << 0, &press_key, &cub);
 	mlx_hook(cub.win, KEYEXIT_X_EVENT, 1L << 5, &press_x_button, &cub);
 	mlx_loop(cub.mlx);
-	free_map(cub.map, cub.m_height);
 	free_all(&cub);
 	return (0);
 }

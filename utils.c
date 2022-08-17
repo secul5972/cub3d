@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:33:21 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/17 16:04:02 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/17 17:46:17 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,15 @@ int	free_map(char **map, int height)
 	int	i;
 
 	i = 0;
-	while (i < height)
+	if (map)
 	{
-		free(map[i]);
-		i++;
+		while (i < height)
+		{
+			free(map[i]);
+			i++;
+		}
+		free(map);
 	}
-	free(map);
 	return (1);
 }
 

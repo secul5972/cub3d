@@ -6,7 +6,7 @@
 /*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/06 21:07:23 by secul5972         #+#    #+#             */
-/*   Updated: 2022/08/17 16:39:10 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/17 17:51:49 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,15 @@ int	isclosed(t_cub3d_data *cub)
 	int	i;
 	int	j;
 
-	cub->dx[0] = 1;
-	cub->dx[1] = 0;
-	cub->dx[2] = -1;
-	cub->dx[3] = 0;
-	cub->dy[0] = 0;
-	cub->dy[1] = 1;
-	cub->dy[2] = 0;
-	cub->dy[3] = -1;
 	i = 0;
 	while (i < cub->m_height)
 	{
 		j = 0;
 		while (j < cub->m_width)
 		{
-			if (cub->map[i][j] == '0' && chk_cell(i, j, cub))
+			if ((cub->map[i][j] == '0' || cub->map[i][j] == 'N' || \
+			cub->map[i][j] == 'S' || cub->map[i][j] == 'E' || \
+			cub->map[i][j] == 'W') && chk_cell(i, j, cub))
 				return (1);
 			j++;
 		}
@@ -77,10 +71,7 @@ int	read_map(t_cub3d_data *cub)
 		return (1);
 	free_list(&head);
 	if (isclosed(cub))
-	{
-		free_map(cub->map, cub->m_height);
 		return (1);
-	}
 	fix_map_find_pos(cub);
 	return (0);
 }
