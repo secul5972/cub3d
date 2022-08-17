@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: secul5972 <secul5972@student.42.fr>        +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:43:29 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/16 11:49:19 by secul5972        ###   ########.fr       */
+/*   Updated: 2022/08/17 13:06:08 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 void	print_wall(t_cub3d_data *cub, int screenX, double cposToWallDist)
 {
-	double	wallLen;
-	int		wallTop;
-	int		wallBottom;
+	double	wall_len;
+	int		wall_top;
+	int		wall_bottom;
 
-	wallLen = cub->w_height / cposToWallDist;
-	wallBottom = cub->w_height / 2 + wallLen / 2;
-	if (wallBottom >= cub->w_height)
-		wallBottom = cub->w_height;
-	wallTop = cub->w_height / 2 - wallLen / 2;
-	if (wallTop < 0)
-		wallTop = 0;
-	while (wallTop <= wallBottom)
+	wall_len = cub->w_height / cposToWallDist;
+	wall_bottom = cub->w_height / 2 + wall_len / 2;
+	if (wall_bottom >= cub->w_height)
+		wall_bottom = cub->w_height;
+	wall_top = cub->w_height / 2 - wall_len / 2;
+	if (wall_top < 0)
+		wall_top = 0;
+	while (wall_top <= wall_bottom)
 	{
-		cub->img.data_ptr[wallTop * (int)cub->w_width + screenX] = 0xDC143C;
-		wallTop++;
+		cub->img.data_ptr[wall_top * (int)cub->w_width + screenX] = 0xDC143C;
+		wall_top++;
 	}
 }
 
