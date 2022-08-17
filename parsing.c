@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:32:09 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/17 17:01:09 by seungcoh         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:43:44 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,46 +21,57 @@ int	is_invalid_elements(char **elems)
 		i++;
 	if (i != 2)
 		return (1);
-	if (!(ft_strcmp(elems[0], "NO") == 0 || ft_strcmp(elems[0], "SO") == 0 \
-	|| ft_strcmp(elems[0], "WE") == 0 || ft_strcmp(elems[0], "EA") == 0 \
-	|| ft_strcmp(elems[0], "F") == 0 || ft_strcmp(elems[0], "C") == 0))
-		return (1);
 	return (0);
 }
 
-void	get_img_data(t_cub3d_data *cub, int dir, char *file)
+int	get_img_data(t_cub3d_data *cub, int dir, char *file)
 {
+	if (cub->dir_img[dir].img_ptr)
+		return (1);
 	cub->dir_img[dir].img_ptr = mlx_xpm_file_to_image(cub->mlx, file, \
 		&cub->dir_img[dir].t_width, &cub->dir_img[dir].t_height);
-	cub->dir_img[dir].data_ptr = \
-	(int *)mlx_get_data_addr(cub->dir_img[dir].img_ptr, \
-	&cub->dir_img[dir].bits_per_pixel, &cub->dir_img[dir].line_length, \
-	&cub->dir_img[dir].endian);
+	if (cub->dir_img[dir].img_ptr)
+	{
+		cub->dir_img[dir].data_ptr = \
+		(int *)mlx_get_data_addr(cub->dir_img[dir].img_ptr, \
+		&cub->dir_img[dir].bits_per_pixel, &cub->dir_img[dir].line_length, \
+		&cub->dir_img[dir].endian);
+	}
+	return (0);
+}
+
+int	is_direction(char *str)
+{
+	return (ft_strcmp(str, "NO") == 0 || ft_strcmp(str, "SO") == 0 \
+	|| ft_strcmp(str, "WE") == 0 || ft_strcmp(str, "EA") == 0);
 }
 
 int	get_elements(char *line, t_cub3d_data *cub)
 {
 	char	**elem;
+	int		res;
 
 	elem = ft_split(line, ' ');
 	if (!elem[0])
 		return (free_and_return(elem, 0));
-	if (is_invalid_elements(elem))
-		return (free_and_return(elem, 1));
-	if (ft_strcmp(elem[0], "NO") == 0)
-		get_img_data(cub, 0, elem[1]);
-	else if (ft_strcmp(elem[0], "SO") == 0)
-		get_img_data(cub, 1, elem[1]);
-	else if (ft_strcmp(elem[0], "WE") == 0)
-		get_img_data(cub, 2, elem[1]);
-	else if (ft_strcmp(elem[0], "EA") == 0)
-		get_img_data(cub, 3, elem[1]);
-	else if (ft_strcmp(elem[0], "F") == 0 || ft_strcmp(elem[0], "C") == 0)
+	if (is_direction(elem[0]))
 	{
-		if (get_rgb(elem, cub))
+		if (is_invalid_elements(elem))
 			return (free_and_return(elem, 1));
+		res = 0;
+		if (ft_strcmp(elem[0], "NO") == 0)
+			res = get_img_data(cub, 0, elem[1]);
+		else if (ft_strcmp(elem[0], "SO") == 0)
+			res = get_img_data(cub, 1, elem[1]);
+		else if (ft_strcmp(elem[0], "WE") == 0)
+			res = get_img_data(cub, 2, elem[1]);
+		else if (ft_strcmp(elem[0], "EA") == 0)
+			res = get_img_data(cub, 3, elem[1]);
+		return (free_and_return(elem, res));
 	}
-	return (free_and_return(elem, 0));
+	else if (ft_strcmp(elem[0], "F") == 0 || ft_strcmp(elem[0], "C") == 0)
+		return (free_and_return(elem, get_rgb(elem, cub)));
+	return (free_and_return(elem, 1));
 }
 
 int	parsing(t_cub3d_data *cub)
