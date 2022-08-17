@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 13:02:53 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/17 13:18:23 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ typedef struct s_veci
 
 typedef struct s_dda_data
 {
-	t_veci	mapPos;
-	t_veci	dmapPos;
-	t_vecd	len;
-	t_vecd	dlen;
-	int		side;
+	t_veci		mappos;
+	t_veci		dmappos;
+	t_vecd		len;
+	t_vecd		dlen;
+	int			side;
 }	t_dda_data;
 
 typedef struct s_cub3d_data
@@ -80,41 +80,27 @@ typedef struct s_cub3d_data
 	void	*win;
 	void	*mlx;
 	t_img	img;
-	// window
 	float	w_width;
 	float	w_height;
-	
-	// texture pointers
 	void	*n_texture;
 	void	*s_texture;
 	void	*w_texture;
 	void	*e_texture;
-	// rgb colors
 	int		floor_color;
 	int		ceiling_color;
-
-	//file
 	int		fd;
 	char	contents[300000];
-
-	// map
 	char	**map;
 	int		m_width;
 	int		m_height;
-
-	//vec
 	t_vecd	cpos;
 	t_vecd	cdir;
 	t_vecd	plane;
 	t_vecd	ray;
-
-	//dx
 	int		dx[4];
 	int		dy[4];
-
 	double	xrate;
 	double	yrate;
-
 	double	rotate_angle;
 	double	frame_time;
 }	t_cub3d_data;

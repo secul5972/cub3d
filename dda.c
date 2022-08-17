@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:43:29 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 13:06:08 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/17 13:19:30 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,38 +34,38 @@ void	print_wall(t_cub3d_data *cub, int screenX, double cposToWallDist)
 
 void	dda_init(t_cub3d_data *cub, t_dda_data *vec, t_vecd ray)
 {
-	vec->mapPos.x = (int)cub->cpos.x;
-	vec->mapPos.y = (int)cub->cpos.y;
+	vec->mappos.x = (int)cub->cpos.x;
+	vec->mappos.y = (int)cub->cpos.y;
 	vec->dlen.x = fabs(1 / ray.x);
 	vec->dlen.y = fabs(1 / ray.y);
 	if (ray.x > 0)
 	{
-		vec->dmapPos.x = 1;
-		vec->len.x = (vec->mapPos.x + 1 - cub->cpos.x) * vec->dlen.x;
+		vec->dmappos.x = 1;
+		vec->len.x = (vec->mappos.x + 1 - cub->cpos.x) * vec->dlen.x;
 	}
 	else
 	{
-		vec->dmapPos.x = -1;
-		vec->len.x = (cub->cpos.x - vec->mapPos.x) * vec->dlen.x;
+		vec->dmappos.x = -1;
+		vec->len.x = (cub->cpos.x - vec->mappos.x) * vec->dlen.x;
 	}
 	if (ray.y > 0)
 	{
-		vec->dmapPos.y = 1;
-		vec->len.y = (vec->mapPos.y + 1 - cub->cpos.y) * vec->dlen.y;
+		vec->dmappos.y = 1;
+		vec->len.y = (vec->mappos.y + 1 - cub->cpos.y) * vec->dlen.y;
 	}
 	else
 	{
-		vec->dmapPos.y = -1;
-		vec->len.y = (cub->cpos.y - vec->mapPos.y) * vec->dlen.y;
+		vec->dmappos.y = -1;
+		vec->len.y = (cub->cpos.y - vec->mappos.y) * vec->dlen.y;
 	}
 }
 
 double	dist(t_cub3d_data *cub, t_vecd ray, t_dda_data vec)
 {
 	if (vec.side == 1)
-		return ((vec.mapPos.x - cub->cpos.x + (1 - vec.dmapPos.x) / 2) / ray.x);
+		return ((vec.mappos.x - cub->cpos.x + (1 - vec.dmappos.x) / 2) / ray.x);
 	else
-		return ((vec.mapPos.y - cub->cpos.y + (1 - vec.dmapPos.y) / 2) / ray.y);
+		return ((vec.mappos.y - cub->cpos.y + (1 - vec.dmappos.y) / 2) / ray.y);
 }
 
 void	dda(t_cub3d_data *cub, t_vecd ray, int screenX, double wdist)
@@ -77,17 +77,17 @@ void	dda(t_cub3d_data *cub, t_vecd ray, int screenX, double wdist)
 	{
 		if (vec.len.x < vec.len.y)
 		{
-			vec.mapPos.x += vec.dmapPos.x;
+			vec.mappos.x += vec.dmappos.x;
 			vec.len.x += vec.dlen.x;
 			vec.side = 1;
 		}
 		else
 		{
-			vec.mapPos.y += vec.dmapPos.y;
+			vec.mappos.y += vec.dmappos.y;
 			vec.len.y += vec.dlen.y;
 			vec.side = 0;
 		}
-		if (cub->map[vec.mapPos.y][vec.mapPos.x] == '1')
+		if (cub->map[vec.mappos.y][vec.mappos.x] == '1')
 		{
 			wdist = dist(cub, ray, vec);
 			print_wall(cub, screenX, wdist);
