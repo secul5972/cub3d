@@ -54,7 +54,6 @@ int	cub3d_init2(t_cub3d_data *cub, t_img *img)
 	return (0);
 }
 
-//파일확장자가 .cub임을 확인해야함
 int	file_open(t_cub3d_data *cub, char *cub_file)
 {
 	int	len;
