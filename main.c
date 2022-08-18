@@ -54,8 +54,15 @@ int	cub3d_init2(t_cub3d_data *cub, t_img *img)
 	return (0);
 }
 
+//파일확장자가 .cub임을 확인해야함
 int	file_open(t_cub3d_data *cub, char *cub_file)
 {
+	int	len;
+
+	len = ft_strlen(cub_file);
+	if (!(cub_file[len - 4] == '.' && cub_file[len - 3] == 'c' \
+	&& cub_file[len - 2] == 'u' && cub_file[len - 1] == 'b'))
+		return (1);
 	cub->fd = open(cub_file, O_RDONLY);
 	if (cub->fd < 0)
 		return (1);
@@ -74,7 +81,10 @@ int	main(int argc, char **argv)
 	if (file_open(&cub, argv[1]))
 		return (p_error("File Error\n", 12, &cub));
 	if (parsing(&cub))
+	{
+		close(cub.fd);
 		return (p_error("Parsing Error\n", 15, &cub));
+	}
 	if (read_map(&cub))
 		return (p_error("Read Map Error\n", 16, &cub));
 	cub.cpos.y += 0.5;

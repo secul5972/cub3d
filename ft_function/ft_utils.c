@@ -49,3 +49,15 @@ int	ft_max(int a, int b)
 		return (a);
 	return (b);
 }
+
+size_t	ft_strlen(char *s1)
+{
+	size_t	len;
+
+	if (!s1)
+		return (0);
+	len = 0;
+	while (s1[len])
+		len++;
+	return (len);
+}

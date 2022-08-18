@@ -32,71 +32,90 @@ void	get_color(int *colors, char **elem, t_cub3d_data *cub)
 		cub->ceiling_color = res;
 }
 
-int	change_to_space(char **elem)
+int	make_color_str(char **rgb, char **elem)
 {
+	int	size;
 	int	i;
 	int	j;
+	int	k;
 	int	cnt;
 
-	i = 0;
+	size = 0;
 	cnt = 0;
+	while (elem[++cnt])
+		size += ft_strlen(elem[cnt]);
+	*rgb = (char *)malloc(sizeof(char) * (size + cnt - 2 + 1));
+	if (!(*rgb))
+		return (1);
+	i = 0;
+	k = 0;
 	while (elem[++i])
 	{
 		j = -1;
 		while (elem[i][++j])
+			(*rgb)[k++] = elem[i][j];
+		if (i < cnt - 1)
+			(*rgb)[k++] = ' ';
+	}
+	(*rgb)[k] = 0;
+	return (0);
+}
+
+int	have_color(char *rgb, int i, int res, int *colors)
+{
+	if (i == 0 || rgb[i - 1] == ',' || (rgb[i - 1] == ' ' && rgb[i - 2] == ','))
+		return (1);
+	if (!(0 <= res && res <= 255))
+		return (1);
+	return (0);
+}
+
+int	func(char *rgb, int *colors, int *i, int *k)
+{
+	int	res;
+
+	res = 0;
+	while (rgb[++(*i)])
+	{
+		if (*k == 3 || !(rgb[*i] == ',' || \
+		is_num_ch(rgb[*i]) || rgb[*i] == ' '))
+			return (-1);
+		else if (rgb[*i] == ' ' \
+		&& is_num_ch(rgb[(*i) - 1]) && is_num_ch(rgb[(*i) + 1]))
+			return (-1);
+		else if (rgb[*i] == ',')
 		{
-			if (elem[i][j] == ',')
-			{
-				cnt++;
-				elem[i][j] = ' ';
-			}
-			else if (!(('0' <= elem[i][j] \
-			&& elem[i][j] <= '9') || elem[i][j] == ' '))
-				return (1);
+			if (have_color(rgb, *i, res, colors))
+				return (-1);
+			colors[(*k)++] = res;
+			res = 0;
+		}
+		else if (is_num_ch(rgb[*i]))
+		{
+			res *= 10;
+			res += (rgb[*i] - '0');
 		}
 	}
-	if (cnt != 2)
-		return (1);
-	return (0);
+	return (res);
 }
 
-int	check_number(int *cnt, int *colors, char *rgb)
-{
-	(*cnt)++;
-	if (*cnt == 3)
-		return (1);
-	colors[*cnt] = ft_atoi(rgb);
-	if (colors[*cnt] == -1 || !(0 <= colors[*cnt] && colors[*cnt] <= 255))
-		return (1);
-	return (0);
-}
-
-// 수정(119, ,136 153)
 int	get_rgb(char **elem, t_cub3d_data *cub)
 {
-	char	**rgb;
+	char	*rgb;
 	int		colors[3];
 	int		i;
-	int		j;
-	int		cnt;
+	int		k;
+	int		res;
 
-	if (change_to_space(elem))
-		return (1);
 	i = 0;
-	cnt = -1;
-	while (elem[++i])
-	{
-		rgb = ft_split(elem[i], ' ');
-		j = -1;
-		while (rgb[++j])
-		{
-			if (check_number(&cnt, colors, rgb[j]))
-				return (free_and_return(rgb, 1));
-		}
-		free_str(rgb);
-	}
-	if (cnt != 2)
+	if (make_color_str(&rgb, elem))
 		return (1);
+	i = -1;
+	k = 0;
+	res = func(rgb, colors, &i, &k);
+	if (res == -1 || have_color(rgb, i, res, colors) || k != 2)
+		return (error_return(rgb, 1));
+	colors[k] = res;
 	get_color(colors, elem, cub);
-	return (0);
+	return (error_return(rgb, 0));
 }

@@ -13,7 +13,7 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "mlx/mlx.h" //# include "minilibx-linux/mlx.h"
+# include "minilibx-linux/mlx.h" //# include "mlx/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -27,14 +27,14 @@
 /*# define LEAVEWINDOWMASK	1L << 5
 # define KEYPRESS_X_MASK	1L << 0*/
 
-# define KEY_ESC	53 //mac: 53, linux: 65307
-# define KEY_W		13 //mac: 13, linux: 119
-# define KEY_A		0 //mac: 0, linux: 97
-# define KEY_S		1 //mac: 1, linux: 115
-# define KEY_D		2 //mac: 2, linux: 100
+# define KEY_ESC	65307 //mac: 53, linux: 65307
+# define KEY_W		119 //mac: 13, linux: 119
+# define KEY_A		97 //mac: 0, linux: 97
+# define KEY_S		115 //mac: 1, linux: 115
+# define KEY_D		100 //mac: 2, linux: 100
 
-# define KEY_LEFT	123 //mac: 123, linux: 65361
-# define KEY_RIGHT	124 //mac: 124, linux: 65363
+# define KEY_LEFT	65361 //mac: 123, linux: 65361
+# define KEY_RIGHT	65363 //mac: 124, linux: 65363
 
 # define BORDER 0.0001
 
@@ -117,8 +117,8 @@ int		ft_atoi(const char *nptr);
 int		ft_strcpy(char *s1, char *s2, int start, int end);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_max(int a, int b);
+size_t	ft_strlen(char *s1);
 void	free_str(char **strs);
-int		free_and_return(char **strs, int ret);
 int		read_line(int fd, char **line);
 int		free_list(t_line_lst *head);
 int		free_map(char **map, int height);
@@ -139,5 +139,8 @@ int		press_esc(t_cub3d_data *cub);
 void	reset_background(t_cub3d_data *cub);
 void	free_all(t_cub3d_data *cub);
 int		p_error(char *str, int len, t_cub3d_data *cub);
+int		is_num_ch(char c);
+int		error_return(char *str, int ret);
+int		free_and_return(t_cub3d_data *cub, char **strs, int ret);
 
 #endif
