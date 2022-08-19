@@ -6,14 +6,14 @@
 /*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:51 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 16:54:24 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/19 12:54:56 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../minilibx-linux/mlx.h" //# include "../mlx/mlx.h"
+# include "../mlx/mlx.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -24,17 +24,14 @@
 # define KEYEXIT_X_EVENT	17
 # define KEYPRESS_X_EVENT	02
 
-/*# define LEAVEWINDOWMASK	1L << 5
-# define KEYPRESS_X_MASK	1L << 0*/
+# define KEY_ESC	53
+# define KEY_W		13
+# define KEY_A		0
+# define KEY_S		1
+# define KEY_D		2
 
-# define KEY_ESC	65307 //mac: 53, linux: 65307
-# define KEY_W		119 //mac: 13, linux: 119
-# define KEY_A		97 //mac: 0, linux: 97
-# define KEY_S		115 //mac: 1, linux: 115
-# define KEY_D		100 //mac: 2, linux: 100
-
-# define KEY_LEFT	65361 //mac: 123, linux: 65361
-# define KEY_RIGHT	65363 //mac: 124, linux: 65363
+# define KEY_LEFT	123
+# define KEY_RIGHT	124
 
 # define BORDER 0.0001
 

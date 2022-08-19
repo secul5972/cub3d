@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_press2_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:32:31 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/18 18:32:31 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/19 12:58:19 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	press_x_button(t_cub3d_data *cub)
 {
 	free_all(cub);
-	system("leaks cub3d");
+	system("leaks cub3D");
 	exit(0);
 	return (0);
 }
@@ -23,7 +23,7 @@ int	press_x_button(t_cub3d_data *cub)
 int	press_esc(t_cub3d_data *cub)
 {
 	free_all(cub);
-	system("leaks cub3d");
+	system("leaks cub3D");
 	exit(0);
 	return (0);
 }

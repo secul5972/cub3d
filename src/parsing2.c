@@ -6,7 +6,7 @@
 /*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 17:58:46 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/17 18:57:26 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/19 12:56:05 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	make_color_str(char **rgb, char **elem)
 	return (0);
 }
 
-int	have_color(char *rgb, int i, int res, int *colors)
+int	have_color(char *rgb, int i, int res)
 {
 	if (i == 0 || rgb[i - 1] == ',' || (rgb[i - 1] == ' ' && rgb[i - 2] == ','))
 		return (1);
@@ -85,7 +85,7 @@ int	func(char *rgb, int *colors, int *i, int *k)
 			return (-1);
 		else if (rgb[*i] == ',')
 		{
-			if (have_color(rgb, *i, res, colors))
+			if (have_color(rgb, *i, res))
 				return (-1);
 			colors[(*k)++] = res;
 			res = 0;
@@ -113,7 +113,7 @@ int	get_rgb(char **elem, t_cub3d_data *cub)
 	i = -1;
 	k = 0;
 	res = func(rgb, colors, &i, &k);
-	if (res == -1 || have_color(rgb, i, res, colors) || k != 2)
+	if (res == -1 || have_color(rgb, i, res) || k != 2)
 		return (error_return(rgb, 1));
 	colors[k] = res;
 	get_color(colors, elem, cub);

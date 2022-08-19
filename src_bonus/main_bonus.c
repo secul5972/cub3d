@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:32:37 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/18 18:32:37 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/19 13:00:39 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ int	main(int argc, char **argv)
 	cub.cpos.x += 0.5;
 	reset_background(&cub);
 	ray_casting(&cub);
-	mlx_hook(cub.win, KEYPRESS_X_EVENT, 1L << 0, &press_key, &cub);
-	mlx_hook(cub.win, KEYEXIT_X_EVENT, 1L << 5, &press_x_button, &cub);
+	mlx_hook(cub.win, KEYPRESS_X_EVENT, 0, &press_key, &cub);
+	mlx_hook(cub.win, KEYEXIT_X_EVENT, 0, &press_x_button, &cub);
 	mlx_loop(cub.mlx);
 	free_all(&cub);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:32:35 by chaekim           #+#    #+#             */
-/*   Updated: 2022/08/17 17:27:02 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/19 12:57:38 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int	p_error(char *str, int len, t_cub3d_data *cub)
 {
 	write(2, str, len);
 	free_all(cub);
-	system("leaks cub3d");
+	system("leaks cub3D");
 	return (1);
 }
