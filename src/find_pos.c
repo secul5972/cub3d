@@ -6,7 +6,7 @@
 /*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 14:22:00 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/17 18:46:52 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/19 13:27:58 by chaekim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ void	fix_map_find_pos(t_cub3d_data *cub)
 			if (cub->map[idx.x][idx.y] == 'S')
 				make_vec(&cub->cdir, 0, 1);
 			if (cub->map[idx.x][idx.y] == 'W')
-				make_vec(&cub->cdir, -1, 0);
-			if (cub->map[idx.x][idx.y] == 'E')
 				make_vec(&cub->cdir, 1, 0);
+			if (cub->map[idx.x][idx.y] == 'E')
+				make_vec(&cub->cdir, -1, 0);
 			if (cub->map[idx.x][idx.y] == 'N' || cub->map[idx.x][idx.y] == 'S' \
 			|| cub->map[idx.x][idx.y] == 'W' || cub->map[idx.x][idx.y] == 'E')
 			{
