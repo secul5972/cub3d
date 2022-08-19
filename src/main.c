@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaekim <chaekim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seungcoh <seungcoh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 12:44:55 by seungcoh          #+#    #+#             */
-/*   Updated: 2022/08/19 12:59:54 by chaekim          ###   ########.fr       */
+/*   Updated: 2022/08/19 15:26:53 by seungcoh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ int	main(int argc, char **argv)
 {
 	t_cub3d_data	cub;
 
+	cub3d_init(&cub);
 	if (argc != 2)
 		return (p_error("Arguments Error\n", 17, &cub));
-	cub3d_init(&cub);
 	if (cub3d_init2(&cub, &cub.img))
 		return (p_error("Mlx Error\n", 11, &cub));
 	if (file_open(&cub, argv[1]))
